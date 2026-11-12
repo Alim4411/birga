@@ -3,246 +3,289 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BIRGA — запись к специалистам Ингушетии</title>
+<title>Биржа специалистов</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f8;color:#1c2733}
-header{background:#0f4c5c;color:#fff;padding:18px 16px}
-header .wrap{max-width:960px;margin:0 auto}
-.logo{font-size:26px;font-weight:800;letter-spacing:1px}
-.slogan{font-size:14px;opacity:.9;margin-top:4px}
-main{max-width:960px;margin:0 auto;padding:16px}
-.filters{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.filters input,.filters select{flex:1;min-width:150px;padding:10px;border:1px solid #cfd8e0;border-radius:8px;font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card h3{font-size:18px;margin-bottom:2px}
-.meta{color:#5b6b7b;font-size:13px;margin-bottom:8px}
-.stars{color:#e8a413;font-size:14px;margin-bottom:6px}
-.svc{font-size:14px;margin:6px 0 10px;color:#33424f}
-.btn{display:inline-block;background:#0f8b8d;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:15px;cursor:pointer;text-decoration:none}
-.btn:hover{background:#0c6e70}
-.btn.gray{background:#6b7a88}
-.btn.red{background:#c0392b}
-.btn.small{padding:6px 10px;font-size:13px}
-section.block{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-top:22px}
-section.block h2{font-size:19px;margin-bottom:10px}
-label{display:block;font-size:14px;margin:10px 0 4px;font-weight:600}
-input,select,textarea{width:100%;padding:10px;border:1px solid #cfd8e0;border-radius:8px;font-size:15px}
-.err{color:#c0392b;font-size:13px;margin-top:8px}
-.ok{color:#1e7e46;font-size:14px;margin-top:8px}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:14px;z-index:50}
-.modal{background:#fff;border-radius:14px;padding:20px;max-width:420px;width:100%;max-height:90vh;overflow:auto}
-.row{display:flex;gap:10px}
-.row>div{flex:1}
-.book{font-size:13px;padding:8px;border-radius:8px;margin-bottom:6px;background:#f4f6f8}
-footer{max-width:960px;margin:0 auto;padding:20px 16px;color:#7a8794;font-size:13px}
-.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:10px;color:#fff}
-.b-new{background:#e8a413}.b-conf{background:#0f8b8d}.b-done{background:#1e7e46}.b-canc{background:#98a2ac}
-h4.hint{font-size:14px;color:#5b6b7b;margin:14px 0 4px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#f4f5f7;color:#222;min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 16px;border-radius:0 0 16px 16px}
+header h1{font-size:26px;margin-bottom:6px}
+header p{opacity:.9;font-size:14px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-top:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+label{display:block;font-size:13px;color:#555;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d7d9e0;border-radius:8px;font-size:15px}
+input:focus,select:focus,textarea:focus{outline:2px solid #4f46e5}
+.btn{display:inline-block;border:0;border-radius:8px;padding:11px 18px;font-size:15px;cursor:pointer;background:#4f46e5;color:#fff;margin-top:12px}
+.btn.sec{background:#eef0ff;color:#4f46e5}
+.btn.dgr{background:#fee2e2;color:#b91c1c}
+.btn:active{transform:scale(.97)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:16px}
+.spec{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;flex-direction:column}
+.spec h3{font-size:17px}
+.spec .meta{color:#666;font-size:13px;margin:6px 0}
+.stars{color:#f59e0b;font-size:14px}
+.svc{font-size:13px;background:#f3f4ff;border-radius:6px;padding:3px 8px;display:inline-block;margin:3px 4px 0 0}
+.spec .btn{margin-top:auto}
+.row2{display:flex;gap:10px}
+.row2>div{flex:1}
+.err{color:#b91c1c;font-size:13px;margin-top:8px;display:none}
+.modal{position:fixed;inset:0;background:rgba(15,15,30,.55);display:none;align-items:flex-start;justify-content:center;padding:20px 12px;overflow-y:auto;z-index:50}
+.modal.open{display:flex}
+.mbox{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:440px;position:relative;margin-top:4vh}
+.mbox h2{font-size:19px;margin-bottom:4px}
+.mclose{position:absolute;top:10px;right:12px;border:0;background:#f1f2f7;width:32px;height:32px;border-radius:50%;font-size:17px;cursor:pointer;color:#333}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.slot{padding:9px 0;border:1px solid #d7d9e0;border-radius:8px;background:#fff;cursor:pointer;font-size:14px}
+.slot.sel{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.slot.taken{background:#f1f2f7;color:#aaa;cursor:default}
+.bk{border:1px solid #e5e7eb;border-radius:10px;padding:12px;margin-top:10px;font-size:14px}
+.bk b{font-size:15px}
+.tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;margin-left:6px}
+.t-pending{background:#fef3c7;color:#92400e}
+.t-confirmed{background:#d1fae5;color:#065f46}
+.t-cancelled{background:#fee2e2;color:#991b1b}
+.t-done{background:#e0e7ff;color:#3730a3}
+.starsPick{font-size:26px;cursor:pointer;letter-spacing:4px;margin:6px 0;user-select:none}
+.note{font-size:13px;color:#666;margin-top:6px}
+.empty{color:#777;font-size:14px;text-align:center;padding:14px 0}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <div class="logo">BIRGA</div>
-  <div class="slogan">Нужная услуга. Свободное время. Запись без ожидания.</div>
-</div></header>
-<main>
-  <div class="filters">
-    <select id="fCat"><option value="">Все категории</option><option value="beauty">Красота и уход</option><option value="tutor">Репетиторы</option><option value="home">Бытовые услуги</option></select>
-    <select id="fCity"><option value="">Все города</option><option value="Магас">Магас</option><option value="Назрань">Назрань</option></select>
-    <input id="fSearch" placeholder="Поиск: имя или услуга...">
+<header>
+  <div class="wrap">
+    <h1>🔨 Биржа специалистов</h1>
+    <p>Найди мастера рядом: красота, ремонт, уборка, обучение. Запись — в пару кликов.</p>
   </div>
-  <div class="grid" id="cards"></div>
+</header>
 
-  <section class="block">
-    <h2>Мои записи</h2>
-    <div class="row"><div><label>Ваш телефон</label><input id="myPhone" inputmode="tel" placeholder="8 900 000 00 00"></div></div>
-    <button class="btn" onclick="findBookings()">Найти мои записи</button>
-    <div id="myList" style="margin-top:12px"></div>
-  </section>
-
-  <section class="block">
-    <h2>Оставить отзыв</h2>
-    <p class="meta">Отзыв можно оставить только после подтверждённого визита — по номеру телефона, с которого была запись.</p>
-    <div class="row">
-      <div><label>Специалист</label><select id="revSpec"></select></div>
-      <div><label>Телефон</label><input id="revPhone" inputmode="tel"></div>
+<div class="wrap">
+  <div class="card">
+    <label>Поиск</label>
+    <input id="fSearch" placeholder="Имя мастера или услуга…" oninput="renderCards()">
+    <div class="row2">
+      <div><label>Категория</label><select id="fCat" onchange="renderCards()"></select></div>
+      <div><label>Город</label><select id="fCity" onchange="renderCards()"></select></div>
     </div>
-    <div class="row">
+  </div>
+
+  <div id="cards" class="grid"></div>
+
+  <div class="card">
+    <h3 style="margin-bottom:4px">📋 Мои записи</h3>
+    <p class="note">Введите телефон, под которым записывались — покажем ваши записи и отзывы.</p>
+    <label>Телефон</label>
+    <input id="myPhone" placeholder="8 900 123-45-67">
+    <button class="btn sec" onclick="renderMy()">Показать записи</button>
+    <div id="myList"></div>
+  </div>
+</div>
+
+<!-- ОКНО ЗАПИСИ: всё в одном окне (услуга, дата, время, имя, фамилия, телефон) -->
+<div class="modal" id="bookModal">
+  <div class="mbox">
+    <button class="mclose" data-close>&times;</button>
+    <h2 id="bkTitle">Запись</h2>
+    <p class="note" id="bkInfo"></p>
+    <label>Услуга</label>
+    <select id="bkService" onchange="renderSlots()"></select>
+    <label>Дата</label>
+    <select id="bkDate" onchange="renderSlots()"></select>
+    <label>Время (свободные слоты)</label>
+    <div id="bkSlots" class="slots"></div>
+    <div class="err" id="bkSlotErr">Выберите свободное время</div>
+    <div class="row2">
+      <div><label>Имя</label><input id="bkName" placeholder="Имя"></div>
+      <div><label>Фамилия</label><input id="bkSurname" placeholder="Фамилия"></div>
+    </div>
+    <label>Телефон (только цифры)</label>
+    <input id="bkPhone" inputmode="numeric" placeholder="89001234567">
+    <div class="err" id="bkErr"></div>
+    <button class="btn" onclick="submitBooking()">Записаться</button>
+  </div>
+</div>
+
+<!-- ОКНО ОТЗЫВА -->
+<div class="modal" id="revModal">
+  <div class="mbox">
+    <button class="mclose" data-close>&times;</button>
+    <h2>Оставить отзыв</h2>
+    <p class="note" id="revWho"></p>
+    <div class="starsPick" id="revStars">★★★★★</div>
+    <label>Ваш отзыв</label>
+    <textarea id="revText" rows="3" placeholder="Как всё прошло?"></textarea>
+    <div class="row2">
       <div><label>Имя</label><input id="revName" placeholder="Имя"></div>
       <div><label>Фамилия</label><input id="revSurname" placeholder="Фамилия"></div>
     </div>
-    <label>Оценка</label>
-    <select id="revRating"><option value="5">5 — отлично</option><option value="4">4 — хорошо</option><option value="3">3 — нормально</option><option value="2">2 — плохо</option><option value="1">1 — ужасно</option></select>
-    <label>Отзыв</label><textarea id="revText" rows="3"></textarea>
-    <button class="btn" onclick="sendReview()" style="margin-top:12px">Отправить отзыв</button>
-    <div id="revMsg"></div>
-  </section>
-</main>
-<footer>© BIRGA — демо-прототип для защиты проекта. Записи и отзывы хранятся в вашем браузере.</footer>
-
-<div class="overlay" id="overlay" hidden>
-  <div class="modal">
-    <h3 id="mTitle" style="margin-bottom:6px">Запись</h3>
-    <p class="meta" id="mSub"></p>
-    <label>Услуга</label><select id="mService"></select>
-    <label>Свободное время</label><select id="mSlot"></select>
-    <div class="row">
-      <div><label>Имя *</label><input id="mName" placeholder="Имя"></div>
-      <div><label>Фамилия *</label><input id="mSurname" placeholder="Фамилия"></div>
-    </div>
-    <label>Телефон *</label><input id="mPhone" inputmode="tel" placeholder="8 900 000 00 00">
-    <div id="mMsg"></div>
-    <div class="row" style="margin-top:14px">
-      <button class="btn" onclick="submitBooking()">Записаться</button>
-      <button class="btn gray" onclick="closeModal()">Отмена</button>
-    </div>
+    <div class="err" id="revErr"></div>
+    <button class="btn" onclick="submitReview()">Отправить отзыв</button>
   </div>
 </div>
 
 <script>
-// ---------- Данные (общие с specialist.html) ----------
-var SEED = [
- {id:1,name:'Марьям Аушева',cat:'beauty',city:'Назрань',desc:'Мастер маникюра и педикюра, опыт 5 лет. Работаю с гелем и гель-лаком.',pass:'1111',
-  services:[{n:'Гель-лак',p:1200},{n:'Маникюр',p:1000},{n:'Педикюр',p:1300}]},
- {id:2,name:'Салон «Красота»',cat:'beauty',city:'Магас',desc:'Стрижки, окрашивание, укладки. Работаем каждый день с 9:00.',pass:'2222',
-  services:[{n:'Стрижка',p:1000},{n:'Окрашивание',p:2500},{n:'Укладка',p:1500}]},
- {id:3,name:'Ахмед Евлоев',cat:'tutor',city:'Назрань',desc:'Репетитор по математике. Подготовка к ЕГЭ и ОГЭ, опыт 8 лет.',pass:'3333',
-  services:[{n:'Математика (ЕГЭ)',p:1000},{n:'Математика (ОГЭ)',p:800}]},
- {id:4,name:'Фатима Цориева',cat:'tutor',city:'Магас',desc:'Английский и русский язык. Занятия для школьников и взрослых.',pass:'4444',
-  services:[{n:'Английский язык',p:900},{n:'Русский язык',p:700}]},
- {id:5,name:'Мастер Иса',cat:'home',city:'Назрань',desc:'Ремонт стиральных машин и мелкий бытовой ремонт. Выезд на дом.',pass:'5555',
-  services:[{n:'Ремонт стиральных машин',p:1500},{n:'Мелкий ремонт',p:800}]},
- {id:6,name:'Химчистка «Чисто»',cat:'home',city:'Магас',desc:'Химчистка мебели и ковров на дому. Выезд в день обращения.',pass:'6666',
-  services:[{n:'Химчистка дивана',p:2000},{n:'Химчистка ковра',p:1500}]}
-];
-var CATS={beauty:'Красота и уход',tutor:'Репетиторы',home:'Бытовые услуги'};
-var TIMES=['09:00','11:00','13:00','15:00','17:00'];
+var CATS=['Все категории','Красота','Ремонт','Уборка','Обучение','Другое'];
+var CITIES=['Все города','Назрань','Магас','Карабулак','Малгобек','Сунжа'];
+var HOURS=['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+var bkSpec=null,bkTime=null,revBooking=null,revStars=5;
 
-function pad(n){return (n<10?'0':'')+n}
-function dstr(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
-function dlabel(s){var d=new Date(s+'T00:00:00');var m=['вс','пн','вт','ср','чт','пт','сб'];var mo=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];return d.getDate()+' '+mo[d.getMonth()]+', '+m[d.getDay()]}
-function digits(s){return (s||'').replace(/[^0-9]/g,'')}
+function SP(){try{return JSON.parse(localStorage.getItem('birga_specs')||'[]')}catch(e){return[]}}
+function BK(){try{return JSON.parse(localStorage.getItem('birga_bookings')||'[]')}catch(e){return[]}}
+function RV(){try{return JSON.parse(localStorage.getItem('birga_reviews')||'[]')}catch(e){return[]}}
+function saveSP(a){localStorage.setItem('birga_specs',JSON.stringify(a))}
+function saveBK(a){localStorage.setItem('birga_bookings',JSON.stringify(a))}
+function saveRV(a){localStorage.setItem('birga_reviews',JSON.stringify(a))}
 
-function seedSlots(id){
-  var arr=[];var now=new Date();
-  for(var d=0;d<7;d++){var dt=new Date(now.getTime()+d*86400000);
-    for(var i=0;i<TIMES.length;i++){ if((id*7+d*3+i)%4!==0) arr.push(dstr(dt)+' '+TIMES[i]); }}
-  return arr;
+function seed(){
+  if(localStorage.getItem('birga_specs'))return;
+  saveSP([
+    {id:'s1',name:'Марьям Аушева',cat:'Красота',city:'Назрань',about:'Парикмахер-стилист, 5 лет опыта. Работаю дома, все материалы свои.',services:[{n:'Стрижка',p:500},{n:'Маникюр',p:800},{n:'Макияж',p:1500}],pass:'1111',approved:true},
+    {id:'s2',name:'Салон «Красота»',cat:'Красота',city:'Магас',about:'Салон полного цикла: стрижки, окрашивание, уход.',services:[{n:'Стрижка',p:700},{n:'Окрашивание',p:2000}],pass:'2222',approved:true},
+    {id:'s3',name:'Ахмед Евлоев',cat:'Ремонт',city:'Назрань',about:'Мастер на все руки: сантехника, электрика, мебель.',services:[{n:'Сантехника',p:1000},{n:'Электрика',p:1200},{n:'Сборка мебели',p:800}],pass:'3333',approved:true},
+    {id:'s4',name:'Фатима Цориева',cat:'Обучение',city:'Карабулак',about:'Репетитор: английский и математика, 1–11 класс.',services:[{n:'Английский (час)',p:600},{n:'Математика (час)',p:500}],pass:'4444',approved:true},
+    {id:'s5',name:'Мастер Иса',cat:'Ремонт',city:'Сунжа',about:'Ремонт телефонов и установка замков. Быстро и с гарантией.',services:[{n:'Ремонт телефона',p:1000},{n:'Установка замка',p:900}],pass:'5555',approved:true},
+    {id:'s6',name:'Химчистка «Чисто»',cat:'Уборка',city:'Магас',about:'Химчистка мебели на дому и уборка квартир.',services:[{n:'Химчистка дивана',p:1500},{n:'Уборка квартиры',p:2500}],pass:'6666',approved:true}
+  ]);
+  saveRV([
+    {id:'r1',specId:'s1',stars:5,text:'Очень аккуратная стрижка, спасибо!',name:'Лейла',surname:'Барахоева',phone:'89001112233'},
+    {id:'r2',specId:'s3',stars:5,text:'Починил кран за час, рекомендую.',name:'Магомед',surname:'Цечоев',phone:'89004445566'},
+    {id:'r3',specId:'s4',stars:4,text:'Хорошие объяснения, дочери нравится.',name:'Аминат',surname:'Гагиева',phone:'89007778899'},
+    {id:'r4',specId:'s6',stars:5,text:'Диван как новый!',name:'Хава',surname:'Евлоева',phone:'89001234567'}
+  ]);
 }
-function loadSpecs(){var s=localStorage.getItem('birga_specs');if(!s){localStorage.setItem('birga_specs',JSON.stringify(SEED));return SEED.slice()}try{return JSON.parse(s)}catch(e){return SEED.slice()}}
-function saveSpecs(a){localStorage.setItem('birga_specs',JSON.stringify(a))}
-function loadBookings(){try{return JSON.parse(localStorage.getItem('birga_bookings')||'[]')}catch(e){return []}}
-function saveBookings(a){localStorage.setItem('birga_bookings',JSON.stringify(a))}
-function loadReviews(){try{return JSON.parse(localStorage.getItem('birga_reviews')||'[]')}catch(e){return []}}
-function saveReviews(a){localStorage.setItem('birga_reviews',JSON.stringify(a))}
+seed();
 
-var SPECS=loadSpecs();
-function specById(id){for(var i=0;i<SPECS.length;i++)if(SPECS[i].id===id)return SPECS[i];return null}
-function ratingOf(id){var r=loadReviews().filter(function(x){return x.specId===id});if(!r.length)return null;var s=0;r.forEach(function(x){s+=x.rating});return (s/r.length).toFixed(1)}
-function stars(v){if(!v)return '<span class="meta">Отзывов пока нет</span>';var n=Math.round(v),s='';for(var i=0;i<5;i++)s+=(i<n?'★':'☆');return '<span class="stars">'+s+' '+v+'</span>'}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function digits(s){return String(s||'').replace(/\D/g,'')}
+function ratingOf(id){var r=RV().filter(function(x){return x.specId===id});if(!r.length)return 0;var s=0;for(var i=0;i<r.length;i++)s+=r[i].stars;return s/r.length}
+function dates7(){
+  var out=[],d=new Date(),wd=['вс','пн','вт','ср','чт','пт','сб'];
+  for(var i=0;i<7;i++){var x=new Date(d.getTime()+i*86400000);
+    out.push({val:x.toISOString().slice(0,10),label:(i===0?'Сегодня, ':'')+('0'+x.getDate()).slice(-2)+'.'+('0'+(x.getMonth()+1)).slice(-2)+' ('+wd[x.getDay()]+')'});}
+  return out;
+}
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
 
-// ---------- Каталог ----------
+function renderFilters(){
+  var c=document.getElementById('fCat'),ci=document.getElementById('fCity');
+  c.innerHTML=CATS.map(function(x){return '<option>'+x+'</option>'}).join('');
+  ci.innerHTML=CITIES.map(function(x){return '<option>'+x+'</option>'}).join('');
+}
 function renderCards(){
-  var c=document.getElementById('fCat').value,ct=document.getElementById('fCity').value,q=document.getElementById('fSearch').value.toLowerCase();
-  var html='';
-  SPECS.forEach(function(s){
-    if(c&&s.cat!==c)return;if(ct&&s.city!==ct)return;
-    var text=(s.name+' '+s.services.map(function(x){return x.n}).join(' ')+' '+s.desc).toLowerCase();
-    if(q&&text.indexOf(q)<0)return;
-    var free=(s.slots||[]).length;
-    var svcs=s.services.map(function(x){return '<div>'+x.n+' — <b>'+x.p+' ₽</b></div>'}).join('');
-    html+='<div class="card"><h3>'+s.name+'</h3><div class="meta">'+CATS[s.cat]+' · '+s.city+' · свободных слотов: '+free+'</div>'
-      +stars(ratingOf(s.id))+'<div class="svc">'+svcs+'</div><p class="meta">'+s.desc+'</p>'
-      +(free?'<button class="btn" onclick="openModal('+s.id+')">Записаться</button>':'<span class="meta">Свободных слотов нет</span>')+'</div>';
-  });
-  document.getElementById('cards').innerHTML=html||'<div class="card">Ничего не найдено — измените фильтры.</div>';
-}
-['fCat','fCity','fSearch'].forEach(function(id){document.getElementById(id).addEventListener('input',renderCards)});
-
-// ---------- Модал записи ----------
-var curSpec=null;
-function openModal(id){
-  curSpec=specById(id);if(!curSpec)return;
-  document.getElementById('mTitle').textContent='Запись: '+curSpec.name;
-  document.getElementById('mSub').textContent=CATS[curSpec.cat]+' · '+curSpec.city;
-  document.getElementById('mService').innerHTML=curSpec.services.map(function(x,i){return '<option value="'+i+'">'+x.n+' — '+x.p+' ₽</option>'}).join('');
-  fillSlots();
-  document.getElementById('mName').value='';document.getElementById('mSurname').value='';document.getElementById('mPhone').value='';
-  document.getElementById('mMsg').innerHTML='';
-  document.getElementById('overlay').hidden=false;
-}
-function fillSlots(){
-  var byDay={};(curSpec.slots||[]).forEach(function(s){var d=s.slice(0,10);(byDay[d]=byDay[d]||[]).push(s.slice(11))});
-  var html='';
-  Object.keys(byDay).sort().forEach(function(d){
-    html+='<optgroup label="'+dlabel(d)+'">'+byDay[d].sort().map(function(t){return '<option value="'+d+' '+t+'">'+t+'</option>'}).join('')+'</optgroup>';
-  });
-  document.getElementById('mSlot').innerHTML=html||'<option value="">Нет свободных слотов</option>';
-}
-function closeModal(){document.getElementById('overlay').hidden=true}
-function submitBooking(){
-  var n=document.getElementById('mName').value.trim(),sn=document.getElementById('mSurname').value.trim(),ph=digits(document.getElementById('mPhone').value);
-  var msg=document.getElementById('mMsg');
-  if(n.length<2){msg.innerHTML='<div class="err">Укажите имя (минимум 2 буквы).</div>';return}
-  if(sn.length<2){msg.innerHTML='<div class="err">Укажите фамилию (минимум 2 буквы).</div>';return}
-  if(ph.length<10||ph.length>11){msg.innerHTML='<div class="err">Телефон: только цифры, 10–11 символов.</div>';return}
-  var slot=document.getElementById('mSlot').value;
-  if(!slot){msg.innerHTML='<div class="err">Выберите свободное время.</div>';return}
-  var si=+document.getElementById('mService').value,svc=curSpec.services[si];
-  var b={id:Date.now(),specId:curSpec.id,slot:slot,service:svc.n,price:svc.p,name:n,surname:sn,phone:ph,status:'new',created:new Date().toISOString()};
-  var bs=loadBookings();bs.push(b);saveBookings(bs);
-  SPECS=loadSpecs();var sp=specById(curSpec.id);sp.slots=sp.slots.filter(function(x){return x!==slot});saveSpecs(SPECS);
-  msg.innerHTML='<div class="ok">Заявка №'+b.id%100000+' отправлена! '+curSpec.name+' подтвердит её в кабинете.</div>';
-  setTimeout(function(){closeModal();renderCards()},1400);
+  var q=document.getElementById('fSearch').value.toLowerCase();
+  var cat=document.getElementById('fCat').value,city=document.getElementById('fCity').value;
+  var list=SP().filter(function(s){return s.approved})
+    .filter(function(s){return cat==='Все категории'||s.cat===cat})
+    .filter(function(s){return city==='Все города'||s.city===city})
+    .filter(function(s){var hay=(s.name+' '+s.cat+' '+s.services.map(function(v){return v.n}).join(' ')).toLowerCase();return !q||hay.indexOf(q)>=0});
+  var html=list.map(function(s){
+    var r=ratingOf(s.id),n=RV().filter(function(x){return x.specId===s.id}).length;
+    var svcs=s.services.map(function(v){return '<span class="svc">'+esc(v.n)+' — '+v.p+' ₽</span>'}).join('');
+    return '<div class="spec"><h3>'+esc(s.name)+'</h3><div class="meta">'+esc(s.cat)+' · '+esc(s.city)+'</div>'+
+      '<div class="stars">'+(r?'★ '+r.toFixed(1)+' ('+n+')':'Новый мастер')+'</div>'+
+      '<div style="margin-top:8px">'+svcs+'</div>'+
+      '<p class="note" style="margin-top:8px">'+esc(s.about||'')+'</p>'+
+      '<button class="btn" onclick="openBooking(\''+s.id+'\')">Записаться</button></div>';
+  }).join('');
+  document.getElementById('cards').innerHTML=html||'<div class="empty">Ничего не нашлось. Попробуйте другие фильтры.</div>';
 }
 
-// ---------- Мои записи ----------
-function findBookings(){
-  var ph=digits(document.getElementById('myPhone').value);
-  var box=document.getElementById('myList');
-  if(ph.length<10){box.innerHTML='<div class="err">Введите телефон (10–11 цифр).</div>';return}
-  var bs=loadBookings().filter(function(b){return b.phone===ph}).sort(function(a,b){return a.slot<b.slot?-1:1});
-  if(!bs.length){box.innerHTML='<div class="meta">Записей с этим телефоном нет.</div>';return}
-  var st={new:['новая','b-new'],confirmed:['подтверждена','b-conf'],done:['завершена','b-done'],cancelled:['отменена','b-canc']};
-  box.innerHTML=bs.map(function(b){
-    var sp=specById(b.specId)||{name:'—'};
-    var can=(b.status==='new'||b.status==='confirmed')?' <button class="btn red small" onclick="cancelBooking('+b.id+','+ph+')">Отменить</button>':'';
-    return '<div class="book"><b>'+sp.name+'</b> · '+b.service+' · '+dlabel(b.slot.slice(0,10))+', '+b.slot.slice(11)
-      +' <span class="badge '+st[b.status][1]+'">'+st[b.status][0]+'</span>'+can+'</div>';
+function openBooking(id){
+  bkSpec=SP().find(function(s){return s.id===id});if(!bkSpec)return;
+  bkTime=null;
+  document.getElementById('bkTitle').textContent='Запись к «'+bkSpec.name+'»';
+  document.getElementById('bkInfo').textContent=bkSpec.cat+' · '+bkSpec.city;
+  document.getElementById('bkService').innerHTML=bkSpec.services.map(function(v){return '<option value="'+esc(v.n)+'|'+v.p+'">'+esc(v.n)+' — '+v.p+' ₽</option>'}).join('');
+  document.getElementById('bkDate').innerHTML=dates7().map(function(d){return '<option value="'+d.val+'">'+d.label+'</option>'}).join('');
+  document.getElementById('bkName').value='';document.getElementById('bkSurname').value='';document.getElementById('bkPhone').value='';
+  document.getElementById('bkErr').style.display='none';document.getElementById('bkSlotErr').style.display='none';
+  renderSlots();openModal('bookModal');
+}
+function renderSlots(){
+  bkTime=null;
+  var svc=document.getElementById('bkService').value.split('|')[0];
+  var date=document.getElementById('bkDate').value;
+  var taken={};BK().forEach(function(b){if(b.specId===bkSpec.id&&b.service===svc&&b.date===date&&(b.status==='pending'||b.status==='confirmed'))taken[b.time]=1});
+  document.getElementById('bkSlots').innerHTML=HOURS.map(function(h){
+    return '<button class="slot'+(taken[h]?' taken':'')+'" '+(taken[h]?'disabled':'onclick="pickTime(\''+h+'\')"')+'>'+h+'</button>';
   }).join('');
 }
-function cancelBooking(id,ph){
-  var bs=loadBookings(),b=null;
-  bs.forEach(function(x){if(x.id===id&&x.phone===ph)b=x});
-  if(!b||!(b.status==='new'||b.status==='confirmed'))return;
-  b.status='cancelled';saveBookings(bs);
-  SPECS=loadSpecs();var sp=specById(b.specId);
-  if(sp){sp.slots=sp.slots||[];if(sp.slots.indexOf(b.slot)<0)sp.slots.push(b.slot);sp.slots.sort();saveSpecs(SPECS)}
-  findBookings();renderCards();
+function pickTime(h){
+  bkTime=h;
+  document.querySelectorAll('#bkSlots .slot').forEach(function(b){b.classList.remove('sel')});
+  event.target.classList.add('sel');
+  document.getElementById('bkSlotErr').style.display='none';
+}
+function submitBooking(){
+  if(!bkSpec)return;
+  var n=document.getElementById('bkName').value.trim(),s=document.getElementById('bkSurname').value.trim();
+  var ph=digits(document.getElementById('bkPhone').value);
+  var err=document.getElementById('bkErr');
+  if(!bkTime){document.getElementById('bkSlotErr').style.display='block';return}
+  if(n.length<2||s.length<2){err.textContent='Укажите имя и фамилию (минимум 2 буквы)';err.style.display='block';return}
+  if(!(ph.length===10||ph.length===11)){err.textContent='Телефон: 10–11 цифр, например 89001234567';err.style.display='block';return}
+  var svc=document.getElementById('bkService').value.split('|');
+  var date=document.getElementById('bkDate').value;
+  var bk=BK();bk.push({id:'b'+Date.now(),specId:bkSpec.id,service:svc[0],price:+svc[1],date:date,time:bkTime,name:n,surname:s,phone:ph,status:'pending',created:new Date().toISOString()});
+  saveBK(bk);closeModal('bookModal');
+  document.getElementById('myPhone').value=ph;renderMy();
+  alert('Заявка отправлена! Специалист подтвердит запись.');
 }
 
-// ---------- Отзывы ----------
-function fillRevSpecs(){
-  document.getElementById('revSpec').innerHTML=SPECS.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+s.city+'</option>'}).join('');
+function renderMy(){
+  var ph=digits(document.getElementById('myPhone').value);
+  var box=document.getElementById('myList');
+  if(ph.length<10){box.innerHTML='<div class="empty">Введите телефон (10–11 цифр)</div>';return}
+  var list=BK().filter(function(b){return b.phone===ph}).sort(function(a,b){return (a.date+a.time).localeCompare(b.date+b.time)});
+  if(!list.length){box.innerHTML='<div class="empty">Записей по этому телефону нет</div>';return}
+  var tags={pending:'Ожидает подтверждения',confirmed:'Подтверждена',cancelled:'Отменена',done:'Завершена'};
+  var hasRev={};RV().forEach(function(r){hasRev[r.bookingId]=1});
+  box.innerHTML=list.map(function(b){
+    var sp=SP().find(function(s){return s.id===b.specId})||{name:'?'};
+    var canCancel=b.status==='pending'||b.status==='confirmed';
+    var canRev=b.status==='done'&&!hasRev[b.id];
+    return '<div class="bk"><b>'+esc(sp.name)+'</b><span class="tag t-'+b.status+'">'+tags[b.status]+'</span><br>'+
+      esc(b.service)+' · '+b.date+' в '+b.time+' · '+b.price+' ₽'+
+      (canCancel?'<br><button class="btn dgr" style="margin-top:8px" onclick="cancelBooking(\''+b.id+'\')">Отменить запись</button>':'')+
+      (canRev?'<br><button class="btn sec" style="margin-top:8px" onclick="openReview(\''+b.id+'\')">Оставить отзыв</button>':'')+
+      '</div>';
+  }).join('');
 }
-function sendReview(){
-  var msg=document.getElementById('revMsg');
-  var spId=+document.getElementById('revSpec').value,ph=digits(document.getElementById('revPhone').value);
-  var n=document.getElementById('revName').value.trim(),sn=document.getElementById('revSurname').value.trim();
-  var rt=+document.getElementById('revRating').value,tx=document.getElementById('revText').value.trim();
-  if(n.length<2||sn.length<2){msg.innerHTML='<div class="err">Укажите имя и фамилию.</div>';return}
-  var ok=loadBookings().some(function(b){return b.phone===ph&&b.specId===spId&&b.status==='done'});
-  if(!ok){msg.innerHTML='<div class="err">Отзыв можно оставить только после завершённой записи с этого телефона.</div>';return}
-  var r=loadReviews();r.push({specId:spId,phone:ph,name:n+' '+sn,rating:rt,text:tx||'',date:new Date().toISOString()});saveReviews(r);
-  msg.innerHTML='<div class="ok">Спасибо! Отзыв опубликован.</div>';
-  document.getElementById('revText').value='';renderCards();
+function cancelBooking(id){
+  var bk=BK(),b=bk.find(function(x){return x.id===id});
+  if(b){b.status='cancelled';saveBK(bk);renderMy()}
 }
-
-// Заполняем слоты демо-специалистам при первом запуске
-(function(){var ch=false;SPECS.forEach(function(s){if(!s.slots||!s.slots.length){s.slots=seedSlots(s.id);ch=true}});if(ch)saveSpecs(SPECS)})();
-fillRevSpecs();renderCards();
+function openReview(id){
+  revBooking=BK().find(function(b){return b.id===id});if(!revBooking)return;
+  var sp=SP().find(function(s){return s.id===revBooking.specId})||{name:'?'};
+  document.getElementById('revWho').textContent='Специалист: '+sp.name+' · '+revBooking.service;
+  document.getElementById('revStars').textContent='★★★★★';
+  document.getElementById('revStars').style.color='#f59e0b';
+  document.getElementById('revText').value='';
+  document.getElementById('revName').value=revBooking.name;
+  document.getElementById('revSurname').value=revBooking.surname;
+  document.getElementById('revErr').style.display='none';
+  revStars=5;openModal('revModal');
+}
+function pickStars(v){
+  revStars=v;
+  document.getElementById('revStars').textContent='★★★★★'.slice(0,v)+'☆☆☆☆☆'.slice(0,5-v);
+}
+function submitReview(){
+  var t=document.getElementById('revText').value.trim();
+  var n=document.getElementById('revName').value.trim(),s=document.getElementById('revSurname').value.trim();
+  var err=document.getElementById('revErr');
+  if(t.length<3){err.textContent='Напишите пару слов об услуге';err.style.display='block';return}
+  if(n.length<2||s.length<2){err.textContent='Укажите имя и фамилию';err.style.display='block';return}
+  var rv=RV();rv.push({id:'r'+Date.now(),specId:revBooking.specId,bookingId:revBooking.id,stars:revStars,text:t,name:n,surname:s,phone:revBooking.phone,date:new Date().toISOString()});
+  saveRV(rv);closeModal('revModal');renderMy();
+}
+document.querySelectorAll('.modal').forEach(function(m){
+  m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open')});
+  m.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',function(){m.classList.remove('open')})});
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')})});
+renderFilters();renderCards();
 </script>
 </body>
 </html>
