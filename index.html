@@ -1,535 +1,246 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Бирга — биржа услуг Ингушетии</title>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birga — запись к мастерам Назрани</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#f5f6fa;color:#1f2330}
-body.dark{background:#12141c;color:#e8eaf2}
-.wrap{max-width:1000px;margin:0 auto;padding:16px}
-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border-bottom:1px solid #e3e6ee;position:sticky;top:0;z-index:5}
-body.dark header{background:#1b1e2a;border-color:#2a2e3e}
-.logo{font-weight:bold;font-size:22px;color:#3b4fe0}
-.logo span{color:#e8552f}
-.btn{background:#3b4fe0;color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:14px;cursor:pointer}
-.btn.sec{background:#eef0fb;color:#3b4fe0}
-body.dark .btn.sec{background:#262a3c;color:#aab4ff}
-.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
-.btn.red{background:#e8552f}
-h2{margin:18px 0 10px;font-size:20px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-input,select{padding:10px;border:1px solid #d6dae6;border-radius:10px;font-size:14px;background:#fff;color:inherit}
-body.dark input,body.dark select{background:#20242f;border-color:#3a3f52}
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-.card{background:#fff;border:1px solid #e3e6ee;border-radius:14px;padding:16px;margin-bottom:12px}
-body.dark .card{background:#1b1e2a;border-color:#2a2e3e}
-.card .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
-.name{font-weight:bold;font-size:17px}
-.tag{display:inline-block;background:#eef0fb;color:#3b4fe0;border-radius:20px;padding:3px 10px;font-size:12px;margin:2px 4px 0 0}
-body.dark .tag{background:#262a3c;color:#aab4ff}
-.price{color:#1a7f37;font-weight:bold;white-space:nowrap}
-.muted{color:#8a90a3;font-size:13px}
-body.dark .muted{color:#9aa0b5}
-.stars{color:#f5a623}
-.svc{font-size:13px;margin-top:6px;line-height:1.5}
-.modal-back{position:fixed;inset:0;background:rgba(20,22,35,.55);display:none;z-index:20;padding:16px;overflow:auto}
-.modal-back.open{display:block}
-.modal{background:#fff;border-radius:16px;max-width:480px;margin:30px auto;padding:20px;position:relative}
-body.dark .modal{background:#1b1e2a}
+:root{--bg:#f5f7fb;--card:#fff;--text:#1c2333;--muted:#6b7280;--accent:#3b5bfd;--accent2:#eef1ff;--border:#e5e9f2;--ok:#16a34a;--warn:#d97706;--danger:#dc2626}
+body.dark{--bg:#11141c;--card:#1b2030;--text:#eef1f7;--muted:#9aa3b5;--accent:#6d8bff;--accent2:#242b42;--border:#2a3145}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:var(--bg);color:var(--text)}
+header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+.logo{font-weight:bold;font-size:20px;color:var(--accent)}
+.logo span{color:var(--text)}
+header .spacer{flex:1}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-size:14px;cursor:pointer;background:var(--accent);color:#fff}
+.btn.ghost{background:var(--accent2);color:var(--accent)}
+.btn.small{padding:6px 10px;font-size:13px}
+.btn.danger{background:#fde8e8;color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+main{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:16px 0 6px}
+h2{font-size:19px;margin:24px 0 10px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.searchbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.searchbar input,.searchbar select,input,select,textarea{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px}
+.searchbar input{flex:1;min-width:180px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters select{flex:1;min-width:130px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.card .ava{width:46px;height:46px;border-radius:50%;background:var(--accent2);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:17px;margin-bottom:8px}
+.card h3{font-size:16px}
+.card .meta{color:var(--muted);font-size:13px;margin:4px 0}
+.card .price{font-weight:bold;font-size:14px;margin:6px 0}
+.stars{color:#f5a623;font-size:13px}
+.empty{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--border);border-radius:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.step b{color:var(--accent)}
+.modal-bg{position:fixed;inset:0;background:rgba(10,14,25,.55);display:none;align-items:flex-start;justify-content:center;padding:20px;z-index:100;overflow:auto}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);border-radius:16px;padding:18px;max-width:420px;width:100%;margin-top:30px}
 .modal h3{margin-bottom:12px}
-.close{position:absolute;top:10px;right:12px;background:none;border:none;font-size:22px;cursor:pointer;color:#8a90a3}
-label{display:block;font-size:13px;margin:10px 0 4px}
-input.f,select.f{width:100%}
-.slotgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
-.slot{padding:8px 0;text-align:center;border:1px solid #d6dae6;border-radius:8px;cursor:pointer;font-size:13px}
-.slot.sel{background:#3b4fe0;color:#fff;border-color:#3b4fe0}
-.slot.busy{background:#eceef3;color:#a0a4b4;cursor:not-allowed;text-decoration:line-through}
-body.dark .slot.busy{background:#262a3c;color:#5a5f75}
-.err{color:#d33;font-size:13px;margin-top:8px;min-height:18px}
-.ok{color:#1a7f37}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0}
-.step{background:#fff;border:1px solid #e3e6ee;border-radius:14px;padding:16px;text-align:center}
-body.dark .step{background:#1b1e2a;border-color:#2a2e3e}
-.step .num{width:34px;height:34px;border-radius:50%;background:#3b4fe0;color:#fff;line-height:34px;margin:0 auto 8px;font-weight:bold}
-.top-list{display:flex;gap:10px;overflow-x:auto;padding:4px 0 10px}
-.top-item{min-width:230px;background:#fff;border:1px solid #e3e6ee;border-radius:14px;padding:14px}
-body.dark .top-item{background:#1b1e2a;border-color:#2a2e3e}
-.rev{border-top:1px solid #eceef3;padding:8px 0;font-size:13px}
-.faq{margin:20px 0}
-.faq details{background:#fff;border:1px solid #e3e6ee;border-radius:12px;padding:12px 16px;margin-bottom:8px}
-body.dark .faq details{background:#1b1e2a;border-color:#2a2e3e}
-.faq summary{font-weight:bold;cursor:pointer}
-.faq p{margin-top:8px;font-size:14px}
-footer{padding:20px;text-align:center;color:#8a90a3;font-size:13px}
-.badge{background:#e8552f;color:#fff;border-radius:10px;padding:1px 7px;font-size:12px;margin-left:6px}
-.link{color:#3b4fe0;cursor:pointer;text-decoration:underline}
-@media(max-width:600px){.steps{grid-template-columns:1fr}.slotgrid{grid-template-columns:repeat(3,1fr)}}
-</style></head>
+.field{margin-bottom:10px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.slot{border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;cursor:pointer;background:var(--bg);color:var(--text)}
+.slot.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.slot.busy{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.err{color:var(--danger);font-size:13px;min-height:16px}
+.ok-note{color:var(--ok);font-size:13px}
+.row{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.appt{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px}
+.appt .st{font-size:12px;padding:2px 8px;border-radius:8px;display:inline-block}
+.st.new{background:#fff7e6;color:var(--warn)}
+.st.conf{background:#e8f7ee;color:var(--ok)}
+.st.done{background:#e7f0ff;color:var(--accent)}
+.st.canc{background:#fde8e8;color:var(--danger)}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px}
+.faq-item b{display:block;margin-bottom:4px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}
+.hidden{display:none}
+</style>
+</head>
 <body>
-<header><div class="logo">Бир<span>га</span></div>
-<button class="btn sec sm" onclick="toggleDark()" title="Тёмная тема">🌙</button></header>
-<div class="wrap">
+<header>
+<div class="logo">Birga<span>•Назрань</span></div>
+<div class="spacer"></div>
+<button class="btn ghost small" id="themeBtn" title="Тёмная тема">🌙</button>
+<button class="btn ghost small" onclick="openMy()">Мои записи</button>
+</header>
+<main>
+<h1>Запишись к проверенному мастеру</h1>
+<p class="sub">Маникюр, брови, стрижка, ремонт — выбирай услугу, время и приходи.</p>
+
+<div class="searchbar">
+<input id="q" placeholder="Поиск по имени мастера или услуге…" oninput="render()">
+</div>
+<div class="filters">
+<select id="fCat" onchange="render()"><option value="">Все категории</option></select>
+<select id="fCity" onchange="render()"><option value="">Все города</option></select>
+<select id="fPrice" onchange="render()"><option value="">Любая цена</option><option value="500">до 500 ₽</option><option value="1000">до 1000 ₽</option><option value="2000">до 2000 ₽</option></select>
+</div>
+
+<div id="popular"></div>
+<h2>Все мастера</h2>
+<div class="grid" id="cards"></div>
+
 <h2>Как мы работаем</h2>
 <div class="steps">
-<div class="step"><div class="num">1</div><b>Найдите мастера</b><div class="muted">Поиск по услуге, городу и цене</div></div>
-<div class="step"><div class="num">2</div><b>Выберите слот</b><div class="muted">Свободное время — сразу видно</div></div>
-<div class="step"><div class="num">3</div><b>Получите услугу</b><div class="muted">И оставьте отзыв</div></div>
+<div class="step"><b>1.</b> Найди мастера в каталоге — по услуге, городу и цене.</div>
+<div class="step"><b>2.</b> Выбери свободный слот и запишись — подтверждение приходит мастеру сразу.</div>
+<div class="step"><b>3.</b> Получи услугу и оставь отзыв — так другие найдут лучших.</div>
 </div>
 
-<h2>Популярные мастера</h2>
-<div class="top-list" id="top"></div>
-
-<h2>Каталог мастеров</h2>
-<div class="toolbar">
-<input id="q" placeholder="Поиск: имя или услуга" oninput="renderCatalog()" style="flex:1;min-width:160px">
-<select id="fCat" onchange="renderCatalog()"></select>
-<select id="fCity" onchange="renderCatalog()"></select>
-<select id="fPrice" onchange="renderCatalog()">
-<option value="">любая цена</option><option value="500">до 500 ₽</option>
-<option value="1000">до 1000 ₽</option><option value="2000">до 2000 ₽</option>
-<option value="5000">до 5000 ₽</option></select>
-</div>
-<div id="catalog"></div>
-
-<h2>Мои записи</h2>
-<div class="card">
-<input id="myPhone" class="f" placeholder="Ваш телефон (как при записи)" oninput="renderMy()">
-<div id="myList" style="margin-top:10px"></div>
-</div>
-
-<div class="faq">
 <h2>Частые вопросы</h2>
-<details><summary>Сколько стоят услуги?</summary><p>У каждого мастера указана цена «от … до …» — итог зависит от объёма работы. Точную цену уточняйте при записи.</p></details>
-<details><summary>Как отменить запись?</summary><p>Откройте «Мои записи», введите свой телефон и нажмите «Отменить» рядом с нужной записью.</p></details>
-<details><summary>Как оставить отзыв?</summary><p>Отзыв можно оставить после завершённого визита — в «Моих записях» появится ссылка «Оставить отзыв».</p></details>
-<details><summary>Как стать мастером?</summary><p>В кабинете специалиста нажмите «Зарегистрироваться как мастер» — после одобрения администратором вы появитесь в каталоге.</p></details>
-<details><summary>Оплата настоящая?</summary><p>В демо-версии оплата условная: можно отметить «оплачено онлайн» или «оплата на месте». Деньги не списываются.</p></details>
-</div>
+<div id="faq"></div>
+<footer>Birga — демо-проект. Записи хранятся в вашем браузере.</footer>
+</main>
 
-<footer>Бирга — демо-проект биржи услуг Ингушетии · 2026</footer>
+<div class="modal-bg" id="bookBg">
+<div class="modal" id="bookBox"></div>
 </div>
-
-<div class="modal-back" id="mBooking"><div class="modal">
-<button class="close" onclick="closeModal('mBooking')">✕</button>
-<h3 id="bkTitle">Запись</h3>
-<div id="bkForm">
-<label>Услуга</label><select id="bkSvc" class="f"></select>
-<label>Дата</label><select id="bkDate" class="f"></select>
-<label>Свободное время</label><div id="bkSlots"></div>
-<label>Имя</label><input id="bkName" class="f" placeholder="Имя">
-<label>Фамилия</label><input id="bkSurname" class="f" placeholder="Фамилия">
-<label>Телефон</label><input id="bkPhone" class="f" placeholder="Телефон (только цифры)">
-<div class="err" id="bkErr"></div>
-<button class="btn" style="width:100%;margin-top:10px" onclick="submitBooking()">Далее: оплата</button>
+<div class="modal-bg" id="myBg">
+<div class="modal" id="myBox"></div>
 </div>
-<div id="payChoice" style="display:none">
-<p>Выберите способ оплаты:</p>
-<button class="btn" style="width:100%;margin-top:10px" onclick="pay('online')">Оплатить онлайн (демо)</button>
-<button class="btn sec" style="width:100%;margin-top:8px" onclick="pay('place')">Оплатить на месте</button>
-</div>
-<div id="bkDone" style="display:none">
-<p class="ok" style="font-size:18px;margin:10px 0">✓ Заявка отправлена!</p>
-<p class="muted">Мастер подтвердит запись. Оплату можно проверить в кабинете специалиста.</p>
-<button class="btn" style="width:100%;margin-top:12px" onclick="afterDone()">Готово</button>
-</div>
-</div></div>
-
-<div class="modal-back" id="mReview"><div class="modal">
-<button class="close" onclick="closeModal('mReview')">✕</button>
-<h3>Оставить отзыв</h3>
-<label>Имя</label><input id="rvName" class="f" placeholder="Имя">
-<label>Фамилия</label><input id="rvSurname" class="f" placeholder="Фамилия">
-<label>Оценка</label><select id="rvStars" class="f">
-<option value="5">★★★★★ — отлично</option><option value="4">★★★★ — хорошо</option>
-<option value="3">★★★ — нормально</option><option value="2">★★ — плохо</option>
-<option value="1">★ — очень плохо</option></select>
-<label>Отзыв</label><textarea id="rvText" class="f" rows="3" placeholder="Как всё прошло?"></textarea>
-<div class="err" id="rvErr"></div>
-<button class="btn" style="width:100%;margin-top:10px" onclick="submitReview()">Отправить</button>
-</div></div>
-
-<div class="modal-back" id="mReviews"><div class="modal">
-<button class="close" onclick="closeModal('mReviews')">✕</button>
-<h3>Отзывы</h3><div id="rvwBox"></div>
-</div></div>
 
 <script>
-// ===== Хранилище данных (localStorage) =====
-var DB_MASTERS = 'birga_masters_v2';
-var DB_BOOKINGS = 'birga_bookings_v2';
-var DB_REVIEWS = 'birga_reviews_v2';
-var DB_PEND = 'birga_pending_v2';
-var DB_SEEN = 'birga_seen_v2';
-
-var MASTERS_SEED = [
- {
-  "id": "m1",
-  "name": "Ахмед Евлоев",
-  "cat": "Ногти",
-  "city": "Назрань",
-  "phone": "+7 963 123-45-67",
-  "pw": "1111",
-  "bio": "Маникюр и педикюр, аппаратная техника",
-  "services": [
-   {
-    "name": "Маникюр",
-    "from": 700,
-    "to": 1200
-   },
-   {
-    "name": "Педикюр",
-    "from": 900,
-    "to": 1500
-   },
-   {
-    "name": "Дизайн ногтей",
-    "from": 200,
-    "to": 600
-   }
-  ]
- },
- {
-  "id": "m2",
-  "name": "Марьям Циева",
-  "cat": "Волосы",
-  "city": "Назрань",
-  "phone": "+7 968 234-56-78",
-  "pw": "2222",
-  "bio": "Женские и мужские стрижки, окрашивание",
-  "services": [
-   {
-    "name": "Женская стрижка",
-    "from": 800,
-    "to": 2000
-   },
-   {
-    "name": "Мужская стрижка",
-    "from": 400,
-    "to": 800
-   },
-   {
-    "name": "Окрашивание",
-    "from": 2000,
-    "to": 5000
-   }
-  ]
- },
- {
-  "id": "m3",
-  "name": "Муса Баркинкиев",
-  "cat": "Барберы",
-  "city": "Магас",
-  "phone": "+7 905 345-67-89",
-  "pw": "3333",
-  "bio": "Мужские стрижки, борода",
-  "services": [
-   {
-    "name": "Мужская стрижка",
-    "from": 500,
-    "to": 1000
-   },
-   {
-    "name": "Борода",
-    "from": 300,
-    "to": 700
-   },
-   {
-    "name": "Комплекс (стрижка+борода)",
-    "from": 700,
-    "to": 1500
-   }
-  ]
- },
- {
-  "id": "m4",
-  "name": "Лейла Хаутиева",
-  "cat": "Макияж",
-  "city": "Назрань",
-  "phone": "+7 962 456-78-90",
-  "pw": "4444",
-  "bio": "Свадебный и вечерний макияж",
-  "services": [
-   {
-    "name": "Макияж дневной",
-    "from": 1000,
-    "to": 2000
-   },
-   {
-    "name": "Макияж вечерний",
-    "from": 1500,
-    "to": 3000
-   },
-   {
-    "name": "Свадебный макияж",
-    "from": 3000,
-    "to": 6000
-   }
-  ]
- },
- {
-  "id": "m5",
-  "name": "Ислам Газдиев",
-  "cat": "Ремонт",
-  "city": "Карабулак",
-  "phone": "+7 919 567-89-01",
-  "pw": "5555",
-  "bio": "Ремонт телефонов и ноутбуков",
-  "services": [
-   {
-    "name": "Замена экрана",
-    "from": 1500,
-    "to": 5000
-   },
-   {
-    "name": "Чистка от пыли",
-    "from": 500,
-    "to": 1000
-   },
-   {
-    "name": "Установка ПО",
-    "from": 300,
-    "to": 800
-   }
-  ]
- },
- {
-  "id": "m6",
-  "name": "Фатима Ганиева",
-  "cat": "Волосы",
-  "city": "Магас",
-  "phone": "+7 903 678-90-12",
-  "pw": "6666",
-  "bio": "Косички, афроплетение, уход",
-  "services": [
-   {
-    "name": "Косички",
-    "from": 1500,
-    "to": 4000
-   },
-   {
-    "name": "Уход за волосами",
-    "from": 800,
-    "to": 1800
-   }
-  ]
- }
+// ---------- данные ----------
+var DEF_MASTERS=[
+{id:1,name:"Ахмед Евлоев",cat:"Барбер",city:"Назрань",phone:"89600000001",works:["Пн","Вт","Ср","Чт","Пт"],services:[{n:"Стрижка",p1:500,p2:800},{n:"Борода",p1:300,p2:500}]},
+{id:2,name:"Марьям Магомедова",cat:"Ногти",city:"Назрань",phone:"89600000002",works:["Пн","Вт","Ср","Чт","Сб"],services:[{n:"Маникюр",p1:600,p2:1000},{n:"Гель-лак",p1:800,p2:1200}]},
+{id:3,name:"Муса Цечоев",cat:"Барбер",city:"Магас",phone:"89600000003",works:["Вт","Ср","Чт","Сб","Вс"],services:[{n:"Мужская стрижка",p1:400,p2:700},{n:"Камуфляж седины",p1:500,p2:700}]},
+{id:4,name:"Лейла Барахоева",cat:"Брови/Ресницы",city:"Назрань",phone:"89600000004",works:["Пн","Ср","Пт","Сб"],services:[{n:"Коррекция бровей",p1:400,p2:600},{n:"Ламинирование",p1:1200,p2:1800}]},
+{id:5,name:"Ислам Озиев",cat:"Ремонт",city:"Назрань",phone:"89600000005",works:["Пн","Вт","Ср","Чт","Пт","Сб"],services:[{n:"Диагностика ПК",p1:500,p2:800},{n:"Установка Windows",p1:700,p2:1000}]},
+{id:6,name:"Фатима Гандалоева",cat:"Ногти",city:"Карабулак",phone:"89600000006",works:["Вт","Чт","Пт","Сб","Вс"],services:[{n:"Педикюр",p1:700,p2:1100},{n:"Наращивание",p1:1500,p2:2500}]}
 ];
+var DEF_REVIEWS={}; 
+var REVIEWS=JSON.parse(localStorage.getItem("b_reviews")||"null")||DEF_REVIEWS;
+var MASTERS=JSON.parse(localStorage.getItem("b_masters")||"null")||JSON.parse(JSON.stringify(DEF_MASTERS));
+if(!localStorage.getItem("b_masters"))localStorage.setItem("b_masters",JSON.stringify(MASTERS));
+var BOOKINGS=JSON.parse(localStorage.getItem("b_bookings")||"[]");
+var USERS=JSON.parse(localStorage.getItem("b_users")||"{}");
 
-function load(k, seed){
-  try{ var v = localStorage.getItem(k); if(v) return JSON.parse(v); }catch(e){}
-  if(seed){ try{ localStorage.setItem(k, JSON.stringify(seed)); }catch(e){} return JSON.parse(JSON.stringify(seed)); }
-  return [];
-}
-function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+// ---------- helpers ----------
+function saveAll(){localStorage.setItem("b_masters",JSON.stringify(MASTERS));localStorage.setItem("b_bookings",JSON.stringify(BOOKINGS));localStorage.setItem("b_reviews",JSON.stringify(REVIEWS));localStorage.setItem("b_users",JSON.stringify(USERS));}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function starTxt(r){var n=REVIEWS[r.id]?REVIEWS[r.id].reduce(function(a,x){return a+x.stars},0)/REVIEWS[r.id].length:0;return n?("★"+n.toFixed(1)+" ("+REVIEWS[r.id].length+")"):"новичок";}
+function masterById(id){for(var i=0;i<MASTERS.length;i++)if(MASTERS[i].id===id)return MASTERS[i];return null;}
 
-function getMasters(){ return load(DB_MASTERS, MASTERS_SEED); }
-function saveMasters(list){ save(DB_MASTERS, list); }
-function getBookings(){ return load(DB_BOOKINGS, []); }
-function saveBookings(list){ save(DB_BOOKINGS, list); }
-function getReviews(){ return load(DB_REVIEWS, [
-  {mid:'m1', name:'Аминат Дзарахова', text:'Очень аккуратно, буду ещё!', stars:5, date:'2026-11-01'},
-  {mid:'m2', name:'Хава Костоева', text:'Стрижка — супер, спасибо!', stars:5, date:'2026-11-02'}
-]); }
-function saveReviews(list){ save(DB_REVIEWS, list); }
-function getPend(){ return load(DB_PEND, []); }
-function savePend(list){ save(DB_PEND, list); }
-function getSeen(){ return load(DB_SEEN, {}); }
-function saveSeen(o){ save(DB_SEEN, o); }
+// ---------- каталог ----------
+function fillFilters(){
+var cats={},cities={};MASTERS.forEach(function(m){cats[m.cat]=1;cities[m.city]=1});
+var fc=document.getElementById("fCity");var curC=fc.value;fc.innerHTML='<option value="">Все города</option>';
+Object.keys(cities).sort().forEach(function(c){fc.insertAdjacentHTML("beforeend",'<option value="'+esc(c)+'">'+esc(c)+"</option>")});fc.value=curC;
+var fk=document.getElementById("fCat");var curK=fk.value;fk.innerHTML='<option value="">Все категории</option>';
+Object.keys(cats).sort().forEach(function(c){fk.insertAdjacentHTML("beforeend",'<option value="'+esc(c)+'">'+esc(c)+"</option>")});fk.value=curK;}
+function cardHtml(m){
+var svcs=m.services.map(function(s){return esc(s.n)}).join(", ");
+return '<div class="card"><div class="ava">'+esc(m.name[0])+'</div><h3>'+esc(m.name)+'</h3><div class="meta">'+esc(m.cat)+" · "+esc(m.city)+'</div><div class="meta">'+esc(svcs)+'</div><div class="price">'+m.services[0].p1+"–"+m.services[m.services.length-1].p2+" ₽</div><div class='stars'>"+starTxt(m)+'</div><br><button class="btn small" onclick="openBook('+m.id+')">Записаться</button></div>';}
+function render(){
+fillFilters();
+var q=document.getElementById("q").value.toLowerCase().trim();
+var cat=document.getElementById("fCat").value,city=document.getElementById("fCity").value,pr=+document.getElementById("fPrice").value||0;
+var list=MASTERS.filter(function(m){
+if(cat&&m.cat!==cat)return false;if(city&&m.city!==city)return false;
+if(pr){var ok=m.services.some(function(s){return s.p1<=pr});if(!ok)return false;}
+if(q){var hay=(m.name+" "+m.services.map(function(s){return s.n}).join(" ")+" "+m.cat).toLowerCase();if(hay.indexOf(q)<0)return false;}
+return true;});
+document.getElementById("cards").innerHTML=list.length?list.map(cardHtml).join(""):'<div class="empty" style="grid-column:1/-1">Ничего не нашлось — измените фильтры.</div>';
+// популярные: топ-3 по числу записей
+var cnt={};BOOKINGS.forEach(function(b){cnt[b.mid]=(cnt[b.mid]||0)+1});
+var top=MASTERS.slice().sort(function(a,b){return (cnt[b.id]||0)-(cnt[a.id]||0)}).slice(0,3).filter(function(m){return (cnt[m.id]||0)>0});
+document.getElementById("popular").innerHTML=top.length?"<h2>Популярные мастера</h2><div class='grid'>"+top.map(cardHtml).join("")+"</div>":"";}
 
-function avgStars(mid){
-  var r = getReviews().filter(function(x){return x.mid===mid;});
-  if(!r.length) return null;
-  var s = 0; r.forEach(function(x){s+=x.stars;});
-  return (s/r.length).toFixed(1);
+// ---------- окно записи ----------
+var cur=null,curSvc=0,curDate="",curTime="";
+function openBook(id){
+cur=masterById(id);curSvc=0;curDate="";curTime="";
+if(!cur)return;
+drawBook();document.getElementById("bookBg").classList.add("open");}
+function drawBook(){
+var d=new Date(),days=[];var wd=["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+for(var i=1;i<=7;i++){var x=new Date(d);x.setDate(d.getDate()+i);days.push({k:x.getFullYear()+"-"+(x.getMonth()+1)+"-"+x.getDate(),t:wd[x.getDay()]+" "+x.getDate()+"."+(x.getMonth()+1)})}
+var opts=cur.services.map(function(s,i){return '<option value="'+i+'">'+esc(s.n)+" — от "+s.p1+" до "+s.p2+" ₽</option>"}).join("");
+var slots="";if(curDate){var dayName=days.filter(function(x){return x.k===curDate})[0];if(dayName&&!cur.works.includes(dayName.t.split(" ")[0])){slots='<div class="err">Этот день у мастера выходной — выберите другой.</div>';}else{var taken=BOOKINGS.filter(function(b){return b.mid===cur.id&&b.date===curDate&&!b.cancelled}).map(function(b){return b.time});
+["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"].forEach(function(t){var busy=taken.indexOf(t)>=0;slots+='<div class="slot'+(busy?" busy":"")+(t===curTime?" sel":"")+'" data-t="'+t+'" onclick="'+(busy?"":'pickTime(\''+t+'\')')+'">'+t+"</div>"});}}
+document.getElementById("bookBox").innerHTML=
+'<h3>Запись: '+esc(cur.name)+'</h3>'+
+'<div class="field"><label>Услуга</label><select id="svc" onchange="curSvc=+this.value;curTime=\'\';drawBook()">'+opts+'</select></div>'+
+'<div class="field"><label>Дата</label><select id="dt" onchange="curDate=this.value;curTime=\'\';drawBook()"><option value="">— выберите дату —</option>'+days.map(function(x){return '<option value="'+x.k+'"'+(x.k===curDate?" selected":"")+'>'+esc(x.t)+"</option>"}).join("")+'</select></div>'+
+(curDate?'<div class="field"><label>Время (серые — заняты)</label><div class="slots">'+slots+'</div></div>':'')+
+'<div class="field"><label>Имя *</label><input id="fn" placeholder="Имя"></div>'+
+'<div class="field"><label>Фамилия *</label><input id="ln" placeholder="Фамилия"></div>'+
+'<div class="field"><label>Телефон *</label><input id="ph" placeholder="8960…" inputmode="numeric"></div>'+
+'<div class="err" id="bErr"></div>'+
+'<div class="row"><button class="btn ghost" onclick="closeBook()">Отмена</button><button class="btn" onclick="submitBook()">Далее → оплата</button></div>';
 }
-function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function $(id){ return document.getElementById(id); }
-function days(){ return ['Вс','Пн','Вт','Ср','Чт','Пт','Сб']; }
-function slots(){
-  var a=[]; for(var h=9;h<=19;h++){ for(var m of [0,30]){ a.push((h<10?'0':'')+h+':'+(m===0?'00':'30')); } } return a;
+function pickTime(t){curTime=t;drawBook();}
+function closeBook(){document.getElementById("bookBg").classList.remove("open");}
+function submitBook(){
+var fn=document.getElementById("fn").value.trim(),ln=document.getElementById("ln").value.trim(),ph=document.getElementById("ph").value.replace(/\D/g,"");
+var e="";if(!curTime)e="Выберите время. ";if(fn.length<2)e+="Введите имя. ";if(ln.length<2)e+="Введите фамилию. ";if(ph.length<10)e+="Введите телефон (10–11 цифр). ";
+if(e){document.getElementById("bErr").textContent=e.trim();return;}
+drawPay({mid:cur.id,fn:fn,ln:ln,ph:ph,svc:cur.services[curSvc].n,p1:cur.services[curSvc].p1,p2:cur.services[curSvc].p2,date:curDate,time:curTime});}
+function drawPay(a){
+document.getElementById("bookBox").innerHTML=
+'<h3>Оплата</h3><div class="field"><b>'+esc(a.svc)+'</b><div class="meta">'+esc(masterById(a.mid).name)+" · "+a.date+" в "+a.time+'</div><div class="price">'+a.p1+"–"+a.p2+" ₽ — рассчитаетесь с мастером</div></div>"+
+'<div class="row"><button class="btn ghost" onclick="book(\''+a.ph+'\',\''+a.fn+'\',\''+a.ln+'\','+a.mid+',\''+a.svc+'\','+a.p1+','+a.p2+',\''+a.date+'\','+a.time+',1)">Оплатить онлайн (демо)</button>'+
+'<button class="btn ghost" onclick="book(\''+a.ph+'\',\''+a.fn+'\',\''+a.ln+'\','+a.mid+',\''+a.svc+'\','+a.p1+','+a.p2+',\''+a.date+'\','+a.time+',0)">Оплатить на месте</button></div>';
 }
-function today(){ var d=new Date(); return d.toISOString().slice(0,10); }
-function addDays(n){ var d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+function book(ph,fn,ln,mid,svc,p1,p2,date,time,paid){
+if(BOOKINGS.some(function(b){return b.mid===mid&&b.date===date&&b.time===time&&!b.cancelled})){alert("Это время только что заняли — выберите другое.");return;}
+BOOKINGS.push({mid:mid,fn:fn,ln:ln,ph:ph,svc:svc,p1:p1,p2:p2,date:date,time:time,paid:paid,status:"новая",cancelled:false,reviewed:false});
+saveAll();closeBook();render();
+document.getElementById("myBox").innerHTML='<h3>✅ Вы записаны!</h3><p class="sub">'+esc(masterById(mid).name)+" · "+svc+" · "+date+" в "+time+(paid?" · оплачено онлайн (демо)":" · оплата на месте")+'</p><div class="row"><button class="btn" onclick="closeMy();openMy()">Мои записи</button></div>';
+document.getElementById("myBg").classList.add("open");}
 
-var booking = {mid:null, svc:null, date:null, time:null};
-var dark = localStorage.getItem('birga_dark')==='1';
-if(dark) document.body.classList.add('dark');
+// ---------- мои записи ----------
+function openMy(){
+var ph=prompt("Введите ваш телефон (как при записи):","");
+if(!ph)return;ph=ph.replace(/\D/g,"");
+var list=BOOKINGS.filter(function(b){return b.ph===ph});
+var html=list.length?"":'<div class="empty">Записей с таким телефоном нет.</div>';
+list.slice().reverse().forEach(function(b,i){
+var idx=BOOKINGS.indexOf(b);
+var st=b.cancelled?'<span class="st canc">отменена</span>':b.status==="новая"?'<span class="st new">новая</span>':b.status==="подтверждена"?'<span class="st conf">подтверждена</span>':'<span class="st done">завершена</span>';
+html+='<div class="appt"><b>'+esc(masterById(b.mid)?masterById(b.mid).name:"—")+'</b> '+st+'<div class="meta">'+esc(b.svc)+" · "+b.date+" в "+b.time+(b.paid?" · оплачено онлайн":" · оплата на месте")+'</div>';
+if(!b.cancelled&&b.status!=="завершена")html+='<button class="btn danger small" onclick="cancelBook('+idx+',\''+ph+'\')">Отменить</button> ';
+if(b.status==="завершена"&&!b.reviewed)html+='<button class="btn small" onclick="openReview('+idx+',\''+ph+'\')">Оставить отзыв</button>';
+html+="</div>";});
+document.getElementById("myBox").innerHTML="<h3>Мои записи</h3>"+html+'<div class="row"><button class="btn ghost" onclick="closeMy()">Закрыть</button></div>';
+document.getElementById("myBg").classList.add("open");}
+function closeMy(){document.getElementById("myBg").classList.remove("open");}
+function cancelBook(i,ph){BOOKINGS[i].cancelled=true;saveAll();openMy();render();}
+function openReview(i,ph){
+var b=BOOKINGS[i];
+document.getElementById("myBox").innerHTML='<h3>Отзыв о визите</h3><div class="field"><label>Имя *</label><input id="rFn" placeholder="Имя"></div><div class="field"><label>Фамилия *</label><input id="rLn" placeholder="Фамилия"></div><div class="field"><label>Оценка</label><select id="rSt"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div><div class="field"><label>Комментарий</label><textarea id="rTx" rows="3"></textarea></div><div class="err" id="rErr"></div><div class="row"><button class="btn ghost" onclick="openMy()">Назад</button><button class="btn" onclick="sendReview('+i+',\''+ph+'\')">Отправить</button></div>';}
+function sendReview(i,ph){
+var fn=document.getElementById("rFn").value.trim(),ln=document.getElementById("rLn").value.trim();
+if(fn.length<2||ln.length<2){document.getElementById("rErr").textContent="Введите имя и фамилию.";return;}
+var b=BOOKINGS[i];var mid=b.mid;
+if(!REVIEWS[mid])REVIEWS[mid]=[];
+REVIEWS[mid].push({n:fn+" "+ln,stars:+document.getElementById("rSt").value,tx:document.getElementById("rTx").value.trim()});
+b.reviewed=true;saveAll();openMy();render();}
 
-function renderCatalog(){
-  var q = ($('q').value||'').toLowerCase();
-  var cat = $('fCat').value, city = $('fCity').value, maxp = parseInt($('fPrice').value||'999999',10);
-  var list = getMasters().filter(function(m){
-    if(cat && m.cat!==cat) return false;
-    if(city && m.city!==city) return false;
-    var ok = m.services.some(function(s){return s.from<=maxp;});
-    if(!ok) return false;
-    if(q){
-      var hay = (m.name+' '+m.cat+' '+m.bio+' '+m.services.map(function(s){return s.name;}).join(' ')).toLowerCase();
-      if(hay.indexOf(q)<0) return false;
-    }
-    return true;
-  });
-  var html='';
-  list.forEach(function(m){
-    var r = avgStars(m.id);
-    var svc = m.services.map(function(s){return '<div>'+esc(s.name)+' — от '+s.from+' до '+s.to+' ₽</div>';}).join('');
-    html += '<div class="card"><div class="row"><div><div class="name">'+esc(m.name)+'</div>'+
-      '<div class="muted">'+esc(m.city)+' · '+esc(m.phone)+'</div>'+
-      '<div><span class="tag">'+esc(m.cat)+'</span>'+(r?'<span class="stars">★ '+r+'</span>':'<span class="muted">нет отзывов</span>')+'</div>'+
-      '<div class="svc">'+svc+'</div><div class="muted">'+esc(m.bio)+'</div></div>'+
-      '<div style="text-align:right"><div class="price">от '+Math.min.apply(null,m.services.map(function(s){return s.from;}))+' ₽</div>'+
-      '<button class="btn" onclick="openBooking(\''+m.id+'\')">Записаться</button></div></div>'+
-      '<div style="margin-top:8px"><span class="link" onclick="showReviews(\''+m.id+'\')">Отзывы ('+getReviews().filter(function(x){return x.mid===m.id;}).length+')</span></div></div>';
-  });
-  $('catalog').innerHTML = html || '<div class="card muted">Ничего не найдено — попробуйте изменить фильтры.</div>';
-}
-
-function openBooking(mid){
-  booking = {mid:mid, svc:null, date:null, time:null};
-  var m = getMasters().filter(function(x){return x.id===mid;})[0];
-  $('bkTitle').textContent = 'Запись: '+m.name;
-  $('bkSvc').innerHTML = '<option value="">— выберите услугу —</option>'+m.services.map(function(s,i){return '<option value="'+i+'">'+esc(s.name)+' (от '+s.from+' до '+s.to+' ₽)</option>';}).join('');
-  var opts='';
-  for(var i=0;i<14;i++){
-    var d=addDays(i); var dt=new Date(d);
-    opts += '<option value="'+d+'">'+days()[dt.getDay()]+', '+d.slice(8,10)+'.'+d.slice(5,7)+'</option>';
-  }
-  $('bkDate').innerHTML = opts;
-  $('bkName').value=''; $('bkSurname').value=''; $('bkPhone').value='';
-  $('bkErr').textContent='';
-  renderSlots();
-  $('payChoice').style.display='none';
-  $('bkForm').style.display='block';
-  $('mBooking').classList.add('open');
-}
-function renderSlots(){
-  var m = getMasters().filter(function(x){return x.id===booking.mid;})[0];
-  booking.date = $('bkDate').value;
-  var d = new Date(booking.date);
-  var wd = d.getDay();
-  var wdays = (m.wdays && m.wdays.length)? m.wdays : [1,2,3,4,5,6];
-  var busy = getBookings().filter(function(b){return b.mid===booking.mid && b.date===booking.date && b.status!=='отменена';}).map(function(b){return b.time;});
-  var html = '<div class="slotgrid">';
-  slots().forEach(function(t){
-    var dis = busy.indexOf(t)>=0 || wdays.indexOf(wd)<0;
-    html += '<div class="slot'+(dis?' busy':(booking.time===t?' sel':''))+'" '+(dis?'':('onclick="pickTime(\''+t+'\')"'))+'>'+t+'</div>';
-  });
-  html += '</div>';
-  if(wdays.indexOf(wd)<0) html += '<div class="err">Этот день у мастера выходной — выберите другой.</div>';
-  $('bkSlots').innerHTML = html;
-}
-function pickTime(t){ booking.time=t; renderSlots(); }
-
-function submitBooking(){
-  var name=$('bkName').value.trim(), sur=$('bkSurname').value.trim(), ph=$('bkPhone').value.trim();
-  var err='';
-  if(name.length<2) err='Введите имя (минимум 2 буквы).';
-  else if(sur.length<2) err='Введите фамилию (минимум 2 буквы).';
-  else if(!/^[0-9]{10,11}$/.test(ph.replace(/\D/g,''))) err='Телефон — только цифры, 10–11 символов.';
-  else if(booking.svc===null) err='Выберите услугу.';
-  else if(!booking.time) err='Выберите время.';
-  if(err){ $('bkErr').textContent=err; return; }
-  $('bkErr').textContent='';
-  booking.client={name:name,surname:sur,phone:ph};
-  $('bkForm').style.display='none';
-  $('payChoice').style.display='block';
-}
-function pay(mode){
-  var b = getBookings();
-  b.push({mid:booking.mid, svc:booking.svc!==null?booking.svc:0, svcName: getMasters().filter(function(x){return x.id===booking.mid;})[0].services[booking.svc||0].name,
-    date:booking.date, time:booking.time, client:booking.client, status:'новая', pay:mode==='online'?'оплачено онлайн (демо)':'оплата на месте', created:Date.now()});
-  saveBookings(b);
-  $('payChoice').style.display='none';
-  $('bkDone').style.display='block';
-}
-function afterDone(){
-  $('bkDone').style.display='none';
-  closeModal('mBooking');
-  renderCatalog(); renderTop(); renderMy();
-}
-
-function renderTop(){
-  var ms=getMasters();
-  var counts = ms.map(function(m){return {m:m, c:getBookings().filter(function(b){return b.mid===m.id;}).length};});
-  counts.sort(function(a,b){return b.c-a.c;});
-  var top = counts.slice(0,3).filter(function(x){return x.c>0;});
-  $('top').innerHTML = top.length? top.map(function(x){
-    var r=avgStars(x.m.id);
-    return '<div class="top-item"><div class="name">'+esc(x.m.name)+'</div><div class="muted">'+esc(x.m.cat)+' · '+esc(x.m.city)+'</div>'+
-      (r?'<div class="stars">★ '+r+'</div>':'')+'<div class="muted">записей: '+x.c+'</div>'+
-      '<button class="btn sm" style="margin-top:8px" onclick="openBooking(\''+x.m.id+'\')">Записаться</button></div>';
-  }).join('') : '<div class="muted">Пока никто не записывался — будьте первым!</div>';
-}
-
-function renderMy(){
-  var ph = ($('myPhone').value||'').replace(/\D/g,'');
-  var box=$('myList');
-  if(!ph){ box.innerHTML='<div class="muted">Введите тот же номер, что при записи.</div>'; return; }
-  var list = getBookings().filter(function(b){return b.client.phone.replace(/\D/g,'')===ph;});
-  if(!list.length){ box.innerHTML='<div class="muted">Записей с этим номером нет.</div>'; return; }
-  var ms=getMasters();
-  box.innerHTML = list.map(function(b,i){
-    var m = ms.filter(function(x){return x.id===b.mid;})[0] || {name:'—'};
-    var done = b.status==='завершена';
-    return '<div class="card"><div class="row"><div><b>'+esc(m.name)+'</b> · '+esc(b.svcName||'')+
-      '<div class="muted">'+b.date+' в '+b.time+' · статус: '+esc(b.status)+(b.pay?' · '+esc(b.pay):'')+'</div>'+
-      (done? '<div style="margin-top:6px"><span class="link" onclick="openReview('+i+')">Оставить отзыв</span></div>':'')+
-      '</div><button class="btn sm red" onclick="cancelBook('+i+')">Отменить</button></div></div>';
-  }).join('');
-  window._my = list;
-}
-function cancelBook(i){
-  var b=getBookings();
-  if(window._my && window._my[i]){ 
-    var idx = b.indexOf(window._my[i]);
-    if(idx>=0){ b[idx].status='отменена'; saveBookings(b); renderMy(); }
-  }
-}
-
-function openReview(i){
-  var b = window._my[i]; if(!b) return;
-  window._revIdx=i;
-  $('rvName').value=''; $('rvSurname').value=''; $('rvText').value=''; $('rvErr').textContent='';
-  $('rvStars').value='5';
-  $('mReview').classList.add('open');
-}
-function submitReview(){
-  var name=$('rvName').value.trim(), sur=$('rvSurname').value.trim(), text=$('rvText').value.trim();
-  if(name.length<2||sur.length<2){ $('rvErr').textContent='Введите имя и фамилию.'; return; }
-  if(text.length<5){ $('rvErr').textContent='Напишите пару слов о визите.'; return; }
-  var b=window._my[window._revIdx];
-  var r=getReviews(); r.push({mid:b.mid, name:name+' '+sur, text:text, stars:parseInt($('rvStars').value,10), date:today()});
-  saveReviews(r);
-  closeModal('mReview'); renderCatalog();
-}
-function showReviews(mid){
-  var list=getReviews().filter(function(x){return x.mid===mid;});
-  $('rvwBox').innerHTML = list.length? list.map(function(x){
-    return '<div class="rev"><b>'+esc(x.name)+'</b> <span class="stars">'+'★'.repeat(x.stars)+'</span><div>'+esc(x.text)+'</div><div class="muted">'+x.date+'</div></div>';
-  }).join('') : '<div class="muted">Отзывов пока нет.</div>';
-  $('mReviews').classList.add('open');
-}
-
-function closeModal(id){ $(id).classList.remove('open'); }
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') ['mBooking','mReview','mReviews'].forEach(closeModal); });
-['mBooking','mReview','mReviews'].forEach(function(id){
-  var el=$(id);
-  el.addEventListener('click', function(e){ if(e.target===el) closeModal(id); });
-});
-
-function init(){
-  var cats=sortedCats(); var cts=sortedCities();
-  $('fCat').innerHTML='<option value="">все категории</option>'+cats.map(function(c){return '<option>'+c+'</option>';}).join('');
-  $('fCity').innerHTML='<option value="">все города</option>'+cts.map(function(c){return '<option>'+c+'</option>';}).join('');
-  $('bkDate').addEventListener('change', function(){ booking.time=null; renderSlots(); });
-  $('bkSvc').addEventListener('change', function(){ booking.svc = this.value===''?null:parseInt(this.value,10); });
-  renderCatalog(); renderTop(); renderMy();
-}
-function sortedCats(){ return Array.from(new Set(getMasters().map(function(m){return m.cat;}))).sort(); }
-function sortedCities(){ return Array.from(new Set(getMasters().map(function(m){return m.city;}))).sort(); }
-function toggleDark(){
-  dark=!dark; localStorage.setItem('birga_dark', dark?'1':'0');
-  document.body.classList.toggle('dark', dark);
-}
+// ---------- FAQ и тема ----------
+document.getElementById("faq").innerHTML=[
+["Сколько стоит услуга?","У каждого мастера в карточке указана цена «от … до …» — итог зависит от объёма работы."],
+["Как отменить запись?","Откройте «Мои записи» по вашему телефону и нажмите «Отменить»."],
+["Когда я могу оставить отзыв?","Только после того, как мастер отметил визит завершённым."],
+["Как стать мастером?","В кабинете специалиста нажмите «Зарегистрироваться как мастер» — заявку одобрит администратор."],
+["Онлайн-оплата настоящая?","Нет, это демо-режим: реальные платежи не проводятся."]
+].map(function(f){return '<div class="faq-item"><b>'+f[0]+"</b>"+f[1]+"</div>"}).join("");
+var dark=localStorage.getItem("b_dark")==="1";applyTheme();
+function applyTheme(){document.body.classList.toggle("dark",dark);document.getElementById("themeBtn").textContent=dark?"☀️":"🌙";}
+document.getElementById("themeBtn").onclick=function(){dark=!dark;localStorage.setItem("b_dark",dark?"1":"0");applyTheme();};
+document.getElementById("bookBg").onclick=function(e){if(e.target===this)closeBook();};
+document.getElementById("myBg").onclick=function(e){if(e.target===this)closeMy();};
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeBook();closeMy();}});
+render();
 </script>
-</body></html>
+</body>
+</html>
