@@ -1,0 +1,35 @@
+/* Specialist cabinet and moderation tools. */
+(function(){
+const B=window.BIRGA;if(!B)return;const $=id=>document.getElementById(id);
+const esc=B.esc,money=B.money,dateLabel=B.dateLabel;
+function current(){return B.db.providers.find(p=>p.id===($('specialistSelect')?.value||B.db.providers[0].id))||B.db.providers[0]}
+function renderStats(){
+ const p=current(),book=B.db.bookings.filter(b=>b.providerId===p.id),done=book.filter(b=>b.status==='Завершена').length;
+ $('specialistStats').innerHTML=[['Записи',book.length,'Все обращения'],['Завершено',done,'Успешные визиты'],['Свободные слоты',p.slots.length,'Доступное время'],['Рейтинг',p.rating.toFixed(1),'По отзывам']].map(x=>`<div class="stat-card"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
+}
+function renderProfile(){const p=current(),f=$('profileForm');if(!f)return;['name','category','city','description','address','phone'].forEach(k=>f.elements[k].value=p[k]||'')}
+function renderServices(){const p=current();$('serviceList').innerHTML=p.services.map(s=>`<div class="service-row"><div><strong>${esc(s.title)}</strong><small>${money(s.price)}</small></div><button class="text-button" data-remove-service="${s.id}">Удалить</button></div>`).join('')||'<p class="muted">Услуг пока нет.</p>';$('serviceList').querySelectorAll('[data-remove-service]').forEach(b=>b.onclick=()=>{p.services=p.services.filter(s=>s.id!==b.dataset.removeService);B.save();renderAll();B.toast('Услуга удалена')})}
+function renderSlots(){const p=current();$('slotList').innerHTML=p.slots.slice().sort().map(s=>`<div class="slot-row"><span>${dateLabel(s)}</span><button class="text-button" data-remove-slot="${s}">Удалить</button></div>`).join('')||'<p class="muted">Свободных слотов пока нет.</p>';$('slotList').querySelectorAll('[data-remove-slot]').forEach(b=>b.onclick=()=>{p.slots=p.slots.filter(s=>s!==b.dataset.removeSlot);B.save();renderAll();B.toast('Слот удалён')})}
+function renderBookings(){const p=current(),rows=B.db.bookings.filter(b=>b.providerId===p.id);$('bookingList').innerHTML=rows.length?`<table><thead><tr><th>КЛИЕНТ</th><th>УСЛУГА</th><th>ВРЕМЯ</th><th>СТОИМОСТЬ</th><th>СТАТУС</th></tr></thead><tbody>${rows.map(b=>`<tr><td>${esc(b.client)}<br><span class="muted">${esc(b.phone)}</span></td><td>${esc(b.service)}</td><td>${dateLabel(b.slot)}</td><td>${money(b.price)}</td><td><select data-status="${b.id}">${['Подтверждена','Завершена','Отменена'].map(s=>`<option ${b.status===s?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`:'<p class="muted">Пока нет записей. Новые бронирования появятся здесь.</p>';
+ $('bookingList').querySelectorAll('[data-status]').forEach(s=>s.onchange=()=>{const b=B.db.bookings.find(x=>x.id===s.dataset.status);if(b){b.status=s.value;B.save();renderStats();B.toast('Статус записи обновлён')}})}
+function renderReviews(){const p=current(),reviews=B.db.reviews.filter(r=>r.providerId===p.id&&r.status==='Опубликован');$('specialistReviews').innerHTML=reviews.map(r=>`<div class="review-row"><div><strong>${esc(r.author)}</strong><small>${esc(r.text)}</small></div><span class="review-stars">★ ${r.rating}/5</span></div>`).join('')}
+function renderAll(){renderStats();renderProfile();renderServices();renderSlots();renderBookings();renderReviews()}
+function initSpecialist(){
+ const sel=$('specialistSelect');if(!sel)return;sel.innerHTML=B.db.providers.map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(p.city)}</option>`).join('');sel.onchange=renderAll;
+ $('profileForm').onsubmit=e=>{e.preventDefault();const p=current(),f=new FormData(e.target);['name','category','city','description','address','phone'].forEach(k=>p[k]=f.get(k));B.save();B.toast('Профиль сохранён');sel.innerHTML=B.db.providers.map(x=>`<option value="${x.id}" ${x.id===p.id?'selected':''}>${esc(x.name)} · ${esc(x.city)}</option>`).join('');renderAll()};
+ $('addServiceForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),p=current();p.services.push({id:'s'+Date.now(),title:f.get('title'),price:Number(f.get('price'))});B.save();e.target.reset();renderAll();B.toast('Услуга добавлена')};
+ $('addSlotForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),p=current(),v=f.get('date')+'T'+f.get('time');if(new Date(v)<=new Date()){B.toast('Выберите будущее время');return}if(p.slots.includes(v)){B.toast('Такой слот уже есть');return}p.slots.push(v);B.save();e.target.reset();renderAll();B.toast('Свободный слот добавлен')};
+ renderAll();
+}
+function initAdmin(){
+ if(!$('adminProviders'))return;const db=B.db;
+ const totalBookings=db.bookings.length,approved=db.providers.filter(p=>p.approved).length,pending=db.reviews.filter(r=>r.status==='На проверке').length;
+ $('adminStats').innerHTML=[['Профили',db.providers.length,'В каталоге и на проверке'],['Активные',approved,'Одобрены модератором'],['Записи',totalBookings,'Всего бронирований'],['Отзывы на проверке',pending,'Требуют решения']].map(x=>`<div class="stat-card"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
+ $('adminProviders').innerHTML=db.providers.map(p=>`<div class="moderation-row"><div class="row-main"><strong>${esc(p.name)}</strong><small class="muted">${esc(p.category)} · ${esc(p.city)} · ${esc(p.services.length)} услуг</small></div><span class="review-status">${p.approved?'Одобрен':'Скрыт'}</span><div class="moderation-actions"><button class="approve" data-provider="${p.id}">${p.approved?'Скрыть':'Одобрить'}</button></div></div>`).join('');
+ $('adminProviders').querySelectorAll('[data-provider]').forEach(b=>b.onclick=()=>{const p=db.providers.find(x=>x.id===b.dataset.provider);p.approved=!p.approved;B.save();initAdmin();B.toast(p.approved?'Профиль опубликован':'Профиль скрыт')});
+ $('adminReviews').innerHTML=db.reviews.length?db.reviews.map(r=>`<div class="moderation-row"><div class="row-main"><strong>${esc(r.author)} · ${esc(r.provider)}</strong><small>${esc(r.text)}</small><small class="muted">Оценка: ${r.rating}/5 · ${r.status}</small></div><div class="moderation-actions">${r.status==='На проверке'?`<button class="approve" data-review="${r.id}" data-action="Опубликован">Опубликовать</button><button class="reject" data-review="${r.id}" data-action="Отклонён">Отклонить</button>`:`<span class="review-status">${r.status}</span>`}</div></div>`).join(''):'<p class="muted">Пока нет отзывов на проверке.</p>';
+ $('adminReviews').querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>{const r=db.reviews.find(x=>x.id===b.dataset.review);r.status=b.dataset.action;B.save();initAdmin();B.toast('Решение по отзыву сохранено')});
+ $('resetDemo').onclick=()=>{if(confirm('Сбросить все демонстрационные изменения и записи?')){localStorage.removeItem('birga_demo_v1');location.reload()}};
+}
+initSpecialist();initAdmin();
+})();

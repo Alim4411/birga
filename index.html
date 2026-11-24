@@ -1,99 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#14251f">
-  <title>BIRGA — Найти. Сравнить. Записаться.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b27"><title>BIRGA — найти специалиста</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="announcement"><span class="dot"></span> Демонстрационная версия · Магас и Назрань</div>
-  <header class="header">
-    <a class="brand" href="#" aria-label="BIRGA — главная"><span class="brand-mark">B</span><span>BIRGA</span></a>
-    <nav class="nav">
-      <a href="#catalog">Каталог</a><a href="#how">Как это работает</a><a href="#for-masters">Специалистам</a>
-    </nav>
-    <div class="header-actions">
-      <button class="btn btn-quiet" id="openCabinet">Кабинет специалиста</button>
-      <button class="btn btn-dark" id="topFind">Найти услугу <span>↗</span></button>
-      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
+<body data-page="client">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">B</span><span>BIRGA<small>Найти. Сравнить. Записаться.</small></span></a>
+  <nav><a class="active" href="index.html">Каталог</a><a href="#how">Как это работает</a><a href="specialist.html">Кабинет специалиста</a></nav>
+  <a class="nav-cta" href="specialist.html">Для специалистов <span>↗</span></a>
+</header>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">ЛОКАЛЬНЫЙ СЕРВИС • ИНГУШЕТИЯ</span>
+      <h1>Нужный специалист.<br><em>В удобное время.</em></h1>
+      <p>Находите услуги в Магасе и Назрани, сравнивайте цены и выбирайте свободный слот для записи.</p>
+      <a class="button button-light" href="#catalog">Найти специалиста <span>↓</span></a>
+      <div class="hero-note"><span class="pulse"></span> Каталог и онлайн-запись в одном месте</div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-line"></span> СЕРВИС УСЛУГ И ОНЛАЙН-ЗАПИСИ</div>
-        <h1>Хорошие специалисты<br><em>рядом.</em> Запись — проще.</h1>
-        <p class="hero-text">Находите мастеров и специалистов в одном месте. Сравнивайте услуги, цены и отзывы — и выбирайте удобное время.</p>
-        <div class="hero-actions"><button class="btn btn-lime" id="heroFind">Найти специалиста <span>↗</span></button><a class="text-link" href="#how">Как работает BIRGA <span>↓</span></a></div>
-        <div class="hero-proof"><div class="proof-avatars"><i>А</i><i>М</i><i>З</i></div><span>Локальный каталог для жителей<br>и гостей республики</span></div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
-        <div class="hero-note note-top"><span class="note-icon">✓</span><span><b>Всё в одном месте</b><small>Цены · отзывы · расписание</small></span></div>
-        <div class="hero-card">
-          <div class="hero-card-top"><span>ПОПУЛЯРНО РЯДОМ</span><span class="live-dot">●</span></div>
-          <div class="mini-profile"><div class="avatar avatar-a">М</div><div><b>Мадина</b><small>Мастер маникюра</small></div><span class="rating">★ 4.9</span></div>
-          <div class="mini-tags"><span>Назрань</span><span>от 1 200 ₽</span></div>
-          <div class="mini-calendar"><div><small>СЕГОДНЯ</small><b>24</b></div><div><small>СВОБОДНО</small><b>14:30</b></div><div><small>ДЛИТЕЛЬНОСТЬ</small><b>60 мин</b></div></div>
-          <button class="mini-book" id="heroBook">Посмотреть профиль <span>↗</span></button>
-        </div>
-        <div class="hero-note note-bottom"><span class="note-icon">⌁</span><span><b>Свободное время</b><small>Выбирайте удобный слот</small></span></div>
-        <div class="hero-stamp">НАЙТИ<br>СРАВНИТЬ<br>ЗАПИСАТЬСЯ</div>
-      </div>
-    </section>
-
-    <section class="search-wrap" id="searchArea">
-      <div class="search-heading"><div><span class="section-kicker">ПОИСК ПО КАТАЛОГУ</span><h2>Кого вы ищете?</h2></div><span class="search-hint">Начните с услуги или категории</span></div>
-      <div class="search-bar">
-        <label class="search-field"><span>⌕</span><input id="searchInput" placeholder="Например, маникюр или репетитор"></label>
-        <label class="select-field"><small>ГОРОД</small><select id="cityFilter"><option value="Все города">Все города</option><option>Назрань</option><option>Магас</option><option>Карабулак</option></select></label>
-        <label class="select-field"><small>КАТЕГОРИЯ</small><select id="categoryFilter"><option value="Все категории">Все категории</option><option>Красота и уход</option><option>Обучение</option><option>Бытовые услуги и ремонт</option></select></label>
-        <button class="btn btn-dark search-submit" id="searchButton">Искать <span>↗</span></button>
-      </div>
-      <div class="quick-cats">
-        <button class="cat-chip active" data-cat="Все категории"><span>✳</span> Все услуги</button>
-        <button class="cat-chip" data-cat="Красота и уход"><span>✦</span> Красота и уход</button>
-        <button class="cat-chip" data-cat="Обучение"><span>▤</span> Обучение</button>
-        <button class="cat-chip" data-cat="Бытовые услуги и ремонт"><span>⌂</span> Дом и ремонт</button>
-      </div>
-    </section>
-
-    <section class="catalog section" id="catalog">
-      <div class="section-head"><div><span class="section-kicker">ВЫБИРАЙТЕ УДОБНО</span><h2>Специалисты рядом</h2><p>Сравните предложения и выберите свободное время.</p></div><div class="catalog-controls"><label class="sort-label">Сортировка <select id="sortFilter"><option value="recommended">По рекомендации</option><option value="rating">Сначала рейтинг</option><option value="price">Сначала дешевле</option></select></label><span class="result-count" id="resultCount">10 специалистов</span></div></div>
-      <div class="filters-row"><button class="filter-pill selected" data-city="Все города">Все города</button><button class="filter-pill" data-city="Назрань">Назрань</button><button class="filter-pill" data-city="Магас">Магас</button><button class="filter-pill" data-city="Карабулак">Карабулак</button><span class="filter-spacer"></span><label class="price-filter">Цена до <select id="priceFilter"><option value="999999">Любая</option><option value="1000">1 000 ₽</option><option value="2000">2 000 ₽</option><option value="3000">3 000 ₽</option></select></label></div>
-      <div class="provider-grid" id="providerGrid"></div>
-      <div class="empty-state hidden" id="emptyState"><div>⌕</div><h3>Ничего не найдено</h3><p>Попробуйте изменить запрос или фильтры.</p><button class="btn btn-dark" id="resetFilters">Сбросить фильтры</button></div>
-    </section>
-
-    <section class="how section" id="how">
-      <div class="how-intro"><span class="section-kicker">ПОНЯТНО С ПЕРВОГО ШАГА</span><h2>Три шага.<br><em>И вы записаны.</em></h2><p>BIRGA объединяет поиск, сравнение и запись в одном простом сценарии.</p></div>
-      <div class="steps">
-        <article class="step"><span class="step-num">01</span><div class="step-icon">⌕</div><h3>Найдите</h3><p>Выберите категорию, город и подходящего специалиста.</p><span class="step-line"></span></article>
-        <article class="step"><span class="step-num">02</span><div class="step-icon">◇</div><h3>Сравните</h3><p>Посмотрите цены, рейтинг, отзывы и свободные слоты.</p><span class="step-line"></span></article>
-        <article class="step"><span class="step-num">03</span><div class="step-icon">✓</div><h3>Запишитесь</h3><p>Выберите дату и время, подтвердите запись без переписки.</p><span class="step-line"></span></article>
-      </div>
-    </section>
-
-    <section class="master-banner section" id="for-masters">
-      <div class="banner-pattern">B</div><div class="banner-copy"><span class="section-kicker light">ДЛЯ СПЕЦИАЛИСТОВ И ОРГАНИЗАЦИЙ</span><h2>Ваши услуги.<br>Больше возможностей.</h2><p>Создайте профиль, добавьте услуги и управляйте расписанием — без необходимости разрабатывать собственный сайт.</p><button class="btn btn-lime" id="bannerCabinet">Открыть кабинет <span>↗</span></button></div>
-      <div class="banner-benefits"><div><b>01</b><span><strong>Профиль в каталоге</strong><small>Услуги, цены и контакты</small></span></div><div><b>02</b><span><strong>Управление расписанием</strong><small>Свободные слоты и записи</small></span></div><div><b>03</b><span><strong>Базовая статистика</strong><small>Обращения и активность</small></span></div></div>
-    </section>
-
-    <section class="trust section"><div><span class="section-kicker">ПРИНЦИП BIRGA</span><h2>Локальный сервис.<br><em>Понятный выбор.</em></h2></div><div class="trust-text"><p>На первом этапе BIRGA ориентирован на Магас и Назрань. Мы начинаем с каталога и онлайн-записи, проверяем качество информации и развиваем платформу по реальному спросу.</p><div class="trust-tags"><span>Местные специалисты</span><span>Прозрачные цены</span><span>Свободные слоты</span></div></div></section>
-  </main>
-
-  <footer class="footer"><a class="brand footer-brand" href="#"><span class="brand-mark">B</span><span>BIRGA</span></a><span>Найти. Сравнить. Записаться на свободное время.</span><span>Демонстрационный проект · 2025–2026</span></footer>
-
-  <div class="modal-backdrop hidden" id="modalBackdrop">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Закрыть">×</button><div id="modalContent"></div></section>
-  </div>
-  <div class="toast" id="toast" role="status"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+    <div class="hero-art" aria-label="Иллюстрация сервиса BIRGA">
+      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+      <div class="art-card art-card-main"><div class="art-card-top"><span>Ближайшая запись</span><span class="live-dot">●</span></div><div class="art-avatar">А</div><strong>Амина</strong><small>Мастер маникюра</small><div class="art-date"><b>СЕГОДНЯ</b><span>15:30</span></div></div>
+      <div class="art-chip chip-one">✦ Проверенные профили</div><div class="art-chip chip-two">⌁ Свободные слоты</div>
+      <div class="art-spark">✳</div>
+    </div>
+  </section>
+  <section class="trust-row"><div><b>01</b><span>Найти услугу</span></div><div><b>02</b><span>Сравнить предложения</span></div><div><b>03</b><span>Записаться онлайн</span></div></section>
+  <section class="section" id="catalog">
+    <div class="section-heading"><div><span class="eyebrow">КАТАЛОГ BIRGA</span><h2>Кого вы ищете?</h2><p>Выберите категорию или найдите специалиста по названию услуги.</p></div><div class="result-count" id="resultCount">Загрузка…</div></div>
+    <div class="filters">
+      <label class="search-field"><span>⌕</span><input id="searchInput" placeholder="Например, маникюр или математика"></label>
+      <select id="categoryFilter" aria-label="Категория"><option value="">Все направления</option><option>Красота и уход</option><option>Репетиторство и обучение</option><option>Бытовые услуги и ремонт</option></select>
+      <select id="cityFilter" aria-label="Город"><option value="">Все города</option><option>Назрань</option><option>Магас</option></select>
+      <select id="sortFilter" aria-label="Сортировка"><option value="recommended">Сначала рекомендуемые</option><option value="price">Сначала дешевле</option><option value="rating">По рейтингу</option></select>
+    </div>
+    <div class="category-pills" id="categoryPills">
+      <button class="pill active" data-category="">Все услуги</button><button class="pill" data-category="Красота и уход">Красота и уход</button><button class="pill" data-category="Репетиторство и обучение">Обучение</button><button class="pill" data-category="Бытовые услуги и ремонт">Бытовые услуги</button>
+    </div>
+    <div class="provider-grid" id="providerGrid"></div>
+    <div class="empty-state hidden" id="emptyState"><div>⌕</div><h3>Ничего не найдено</h3><p>Попробуйте изменить запрос или фильтры.</p><button class="button button-dark" id="resetFilters">Сбросить фильтры</button></div>
+  </section>
+  <section class="how-section" id="how"><div class="how-intro"><span class="eyebrow">ПРОСТОЙ СЦЕНАРИЙ</span><h2>От поиска<br>до записи —<br><em>три шага.</em></h2><p>BIRGA помогает клиентам и специалистам взаимодействовать без лишней переписки.</p></div><div class="how-steps"><article><b>01</b><div class="step-icon">⌕</div><h3>Найдите</h3><p>Выберите категорию, город и подходящего специалиста.</p></article><article><b>02</b><div class="step-icon">▤</div><h3>Сравните</h3><p>Посмотрите услуги, стоимость, отзывы и свободное время.</p></article><article><b>03</b><div class="step-icon">✓</div><h3>Запишитесь</h3><p>Выберите свободный слот и получите подтверждение записи.</p></article></div></section>
+  <section class="join-banner"><div><span class="eyebrow">ВЫ СПЕЦИАЛИСТ?</span><h2>Ваши услуги могут<br>найти больше людей.</h2><p>Создайте профиль, добавьте услуги и управляйте расписанием в одном кабинете.</p></div><a class="button button-light" href="specialist.html">Открыть кабинет <span>↗</span></a></section>
+</main>
+<footer><a class="brand footer-brand" href="index.html"><span class="brand-mark">B</span><span>BIRGA<small>Локальная платформа услуг</small></span></a><span>Учебный демонстрационный прототип · 2025–2026</span><span>Магас · Назрань</span></footer>
+<div class="modal-backdrop hidden" id="bookingModal"><section class="modal"><button class="modal-close" id="closeBooking" aria-label="Закрыть">×</button><span class="eyebrow">ОНЛАЙН-ЗАПИСЬ</span><h2>Записаться к специалисту</h2><div id="bookingProvider" class="booking-provider"></div><form id="bookingForm"><label>Ваше имя<input name="client" required maxlength="50" placeholder="Как к вам обращаться"></label><label>Телефон для связи<input name="phone" required type="tel" maxlength="25" placeholder="+7 ___ ___-__-__"></label><label>Услуга<select name="service" id="bookingService" required></select></label><label>Свободное время<select name="slot" id="bookingSlot" required></select></label><label class="check-line"><input type="checkbox" name="agree" required> Я согласен(на) с правилами записи и отмены.</label><button class="button button-dark full" type="submit">Подтвердить запись</button><p class="form-hint">Оплата производится исполнителю на месте. Онлайн-оплата в прототипе не используется.</p></form></section></div>
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body></html>
